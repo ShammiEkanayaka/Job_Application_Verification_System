@@ -2,7 +2,7 @@
 <div>
 <body>
 <div class="col-12 bg">
-  <loginfields></loginfields>  
+  <loginfields></loginfields> 
 </div>
 </body>
 </div>
@@ -15,7 +15,6 @@ export default {
        loginfields
      }
  }
-
 </script>
 
 <style>

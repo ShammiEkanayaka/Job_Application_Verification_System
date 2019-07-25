@@ -25,7 +25,9 @@
               <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
               <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
             </form>
-            <div class="text-center"><a class="small" href="#">Forgot password?</a></div>
+            <div class="text-center"  >
+              <a class="small" href="#" v-on:click="forget">Forgot password?</a>
+            </div>
             <p style="text-align:center; font-size:11px;">COPYRIGHT © 2015-2019
               <br>FACULTY OF SCIENCE. 
               <br>UNIVERSITY OF JAFFNA. 
@@ -38,7 +40,13 @@
 </template>
 
 <script>
-
+export default {
+  methods: {
+    forget: function () {
+      alert('Please contact your system administrator')
+    }
+  }
+}
 </script>
 
 <style>

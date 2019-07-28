@@ -3,19 +3,20 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login_Page from "./views/Login_Page.vue";
 import Register_Page from "./views/Register_Page";
+import Users from "./views/Users.vue"
 
 Vue.use(Router);
 
 export default new Router({
-  mode:'history',
+  mode: "history",
   routes: [
     {
-      path:"/",
-      name:"login",
-      component:Login_Page
+      path: "/login",
+      name: "login",
+      component: Login_Page
     },
     {
-      path: "/home",
+      path: "/",
       name: "home",
       component: Home
     },
@@ -23,6 +24,11 @@ export default new Router({
       path: "/register",
       name: "register",
       component: Register_Page
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: Users
     },
     {
       path: "/about",

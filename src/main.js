@@ -1,7 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
+import Navbar from './components/Navbar.vue'
+
 import router from "./router";
 import store from "./store";
+
+Vue.component('app-nav',Navbar);
 
 Vue.config.productionTip = false;
 

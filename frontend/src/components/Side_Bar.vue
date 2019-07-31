@@ -6,6 +6,7 @@
     <div class="navigation-icons">
       <i @click="$router.push('/')" class="fas fa-home"></i>
       <i @click="$router.push('/users')" class="fas fa-user-circle"></i>
+      <i @click="$router.push('/add')" class="fas fa-user-plus fa"></i>
       <i class="fas fa-comment-dots"></i>
       <i @click="$router.push('/about')" class="fas fa-info-circle"></i>
     </div>
@@ -13,8 +14,9 @@
       <transition-group name="fade">
         <div v-show="showLink" key="1" @click="$router.push('/')">Home</div>
         <div v-show="showLink" key="2" @click="$router.push('/users')">Users</div>
-        <div v-show="showLink" key="3">Contact</div>
-        <div v-show="showLink" key="4" @click="$router.push('/about')">About</div>
+        <div v-show="showLink" key="3" @click="$router.push('/add')">Add User</div>
+        <div v-show="showLink" key="4">Contact</div>
+        <div v-show="showLink" key="5" @click="$router.push('/about')">About</div>
       </transition-group>
     </div>
   </div>
@@ -53,8 +55,8 @@
     top: 0;
     left: 0;
     width: 60px;
-    padding: 10px;
-    min-height: calc(100vh - 20px);
+    padding: 5px;
+    min-height: calc(200vh - 20px);
     background-color: rgba($color: #81B121, $alpha: .8);
     border: solid #fff;
     border-width: 0 1px 0 0;

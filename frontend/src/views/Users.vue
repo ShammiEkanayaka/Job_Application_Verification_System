@@ -1,7 +1,7 @@
 <template>
 <div>
   <SideBar></SideBar>
-
+ <div class="container">
   <div class="form">
         <label class="col-form-label" for="inputDefault">Default input</label>
         <input type="text" class="form-control" placeholder="Default input" id="inputDefault">
@@ -25,6 +25,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 </div>
 </template>
 

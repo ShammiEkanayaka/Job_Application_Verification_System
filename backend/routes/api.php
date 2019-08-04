@@ -18,3 +18,15 @@ Route::post('/addUser',[
 
 
 ]);
+
+Route::get('/user', function (Request $request) {
+
+    return response()->json([
+
+        'name'=>'chanaka'
+
+    ]);
+
+
+
+});

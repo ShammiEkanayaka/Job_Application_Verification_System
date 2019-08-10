@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Students;
+use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
@@ -31,5 +32,60 @@ class StudentsController extends Controller
         $user->save();
 
         return response()->json(['message'=>$user],201);
+    }
+
+    public function getUser(){
+
+        $allUser = Students::all();
+        return response()->json(['allUser'=>$allUser],200);
+
+    }
+
+    public function deleteUser($index){
+
+        $User = DB::table('Students')->where('index', '=', $index);
+
+        if($User->first() == null){
+            return response()->json(['message'=>"User not found"],404);
+        }
+        else{
+
+            $User->delete();
+            return response()->json(['message'=> "User deleted successfully"],201);
+        }
+    }
+
+    public function editUser(Request $request, $index){
+
+        $User = DB::table('Students')->where('index', '=', $index);
+ 
+        //$User = Students::where('index', '=', $index);
+         
+         if($User->first() == null){
+             return response()->json(['message'=>"User not found"],404);
+         }
+         else{
+            $User->update([
+                'index' => $request->input('index'),
+                'pass' => $request->input('pass'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'tel' => $request->input('tel'),
+                'nic' => $request->input('nic'),
+                'loc' => $request->input('loc'),
+                'dob' => $request->input('dob'),
+                'course' => $request->input('course'),
+                'gpa' => $request->input('gpa'),
+                'degree' => $request->input('degree'),
+                'duration' => $request->input('duration'),
+                'achiev' => $request->input('achiev'),
+                'p1' => $request->input('p1'),
+                'p2' => $request->input('p2'),
+                'linkedin' => $request->input('linkedin'),
+                'github' => $request->input('github'),
+            ]);
+    
+            return response()->json(['message'=>$User->first()],200);
+     }
     }
 }

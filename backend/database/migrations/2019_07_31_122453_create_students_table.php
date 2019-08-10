@@ -15,24 +15,25 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
            // $table->increments('id');
-            $table->timestamps();
             $table->string('index');
+            $table->primary(['index']);
             $table->string('pass');
             $table->string('name');
-            $table->string('email');
-            $table->integer('tel');
-            $table->string('nic');
-            $table->string('loc');
-            $table->DATE('dob');
-            $table->string('course');
-            $table->DECIMAL('gpa');
-            $table->string('degree');
-            $table->integer('duration');
-            $table->string('achiev');
-            $table->string('p1');
-            $table->string('p2');
-            $table->string('linkedin');
-            $table->string('github');
+            $table->string('email')->nullable($value = true);
+            $table->integer('tel')->nullable($value = true);
+            $table->string('nic')->nullable($value = true);
+            $table->string('loc')->nullable($value = true);
+            $table->DATE('dob')->nullable($value = true);
+            $table->string('course')->nullable($value = true);
+            $table->DECIMAL('gpa')->nullable($value = true);
+            $table->string('degree')->nullable($value = true);
+            $table->integer('duration')->nullable($value = true);
+            $table->string('achiev')->nullable($value = true);
+            $table->string('p1')->nullable($value = true);
+            $table->string('p2')->nullable($value = true);
+            $table->string('linkedin')->nullable($value = true);
+            $table->string('github')->nullable($value = true);
+            $table->timestamps();
         });
     }
 

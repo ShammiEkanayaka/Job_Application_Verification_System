@@ -19,14 +19,28 @@ Route::post('/addUser',[
 
 ]);
 
-Route::get('/user', function (Request $request) {
+/* Route::get('/user', function (Request $request) {
 
     return response()->json([
 
         'name'=>'chanaka'
 
-    ]);
+    ]); */
 
+Route::get('/getUser',[
 
+    'uses'=>'StudentsController@getUser'
 
-});
+]);
+
+Route::delete('/deleteUser/{index}',[
+
+    'uses'=>'StudentsController@deleteUser'
+
+]);
+
+Route::put('/editUser/{index}',[
+
+    'uses'=>'StudentsController@editUser'
+
+]);

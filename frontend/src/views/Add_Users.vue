@@ -2,21 +2,21 @@
 <div>
   <SideBar></SideBar>
   <div class="container">
-        <form>
+        <form @submit.prevent="submitForm">
             <div class="form-group row">  
                     <label class="col-sm-2 col-form-label">Index</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" id="index" value="S-">
+                        <input type="text" class="form-control" id="index" v-model="user.index">
                     </div>              
                     <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                     <div class="col-sm-4">
-                         <input type="password" class="form-control" id="pass" placeholder="Password">
+                         <input type="password" class="form-control" id="pass" v-model="user.pass" placeholder="Password">
                     </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Full Name</label>
                 <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" placeholder="full name">
+                <input type="text" class="form-control" id="name" v-model="user.name" placeholder="full name">
                 </div>
             </div>
             <div class="form-group row">
@@ -99,6 +99,10 @@
                 <input type="url" class="form-control" id="github" placeholder="https://github.com/">
                 </div>
             </div>
+            <div class="form-group row">
+                <button type="submit" class="btn btn-primary" style="margin-left: 90%">Add New User</button>
+            </div>
+            
         </form>     
     </div>
 </div>
@@ -109,6 +113,24 @@ import SideBar from '@/components/Side_Bar.vue'
 export default {
      components:{
        SideBar
-     }
+     },
+
+     data(){
+        return{
+            user:{
+                index:'S-',
+                pass:'',
+                name:''
+            }
+        }
+    },
+    methods:{
+        submitForm(){
+            this.$http.post("http://localhost:8000/api/addUser",this.user)
+            .then(function(response){
+                this.$router.push('/users')
+            })   
+        }
+    }
  }
 </script>

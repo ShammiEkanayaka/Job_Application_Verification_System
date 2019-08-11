@@ -110,11 +110,11 @@
 
 <script>
 import SideBar from '@/components/Side_Bar.vue'
+
 export default {
      components:{
        SideBar
      },
-
      data(){
         return{
             user:{

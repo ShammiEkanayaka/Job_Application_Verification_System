@@ -13,14 +13,16 @@ class StudentsController extends Controller
         $user = new Students();
 
         $user->index = $request->input('index');
-        $user->pass = $request->input('pass');
+        $user->reg = $request->input('reg');
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->pass = $request->input('pass');
         $user->tel = $request->input('tel');
         $user->nic = $request->input('nic');
         $user->loc = $request->input('loc');
         $user->dob = $request->input('dob');
         $user->course = $request->input('course');
+        $user->level = $request->input('level'); 
         $user->gpa = $request->input('gpa');
         $user->degree = $request->input('degree');
         $user->duration = $request->input('duration');
@@ -29,8 +31,29 @@ class StudentsController extends Controller
         $user->p2 = $request->input('p2');
         $user->linkedin = $request->input('linkedin');
         $user->github = $request->input('github');
-        $user->save();
 
+        if($request->image == null){
+            
+        }
+        else{
+            $expl = explode(',',$request->image);
+            $decode = base64_decode($expl[1]);
+
+            if(str_contains($expl[0],'png')){
+                $exte  = 'png';
+            }else{
+                $exte = 'jpg';
+            }
+
+            $currenttime = \Carbon\Carbon::now()->timestamp;//str_random(10);
+            $filename = $currenttime.'.'.$exte;
+            $filepath = public_path().'/Profile_Pic/'.$filename;
+            file_put_contents($filepath,$decode);
+            
+            $user->image = $filename;
+        }
+
+        $user->save();
         return response()->json(['message'=>$user],201);
     }
 
@@ -38,6 +61,18 @@ class StudentsController extends Controller
 
         $allUser = Students::all();
         return response()->json(['allUser'=>$allUser],200);
+
+    }
+
+    public function getUser1($index){
+
+        $User = DB::table('Students')->where('index', '=', $index)->first();
+
+        $response = [
+            'user'=>$User
+        ];
+
+        return response()->json([$response],200);
 
     }
 
@@ -65,8 +100,34 @@ class StudentsController extends Controller
              return response()->json(['message'=>"User not found"],404);
          }
          else{
+
+            if($request->image == $User->first()->image){
+                $filename = $request->image;
+                
+            }
+            /* elseif($request->image == $User->first()->image){
+                $filename = $request->image;
+            } */
+            else{
+                
+                $expl = explode(',',$request->image);
+                $decode = base64_decode($expl[1]);
+    
+                if(str_contains($expl[0],'png')){
+                    $exte  = 'png';
+                }else{
+                    $exte = 'jpg';
+                }
+    
+                $currenttime = \Carbon\Carbon::now()->timestamp;//str_random(10);
+                $filename = $currenttime.'.'.$exte;
+                $filepath = public_path().'/Profile_Pic/'.$filename;
+                file_put_contents($filepath,$decode);
+            }
+
             $User->update([
                 'index' => $request->input('index'),
+                'reg' => $request->input('reg'),
                 'pass' => $request->input('pass'),
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
@@ -75,6 +136,7 @@ class StudentsController extends Controller
                 'loc' => $request->input('loc'),
                 'dob' => $request->input('dob'),
                 'course' => $request->input('course'),
+                'level' => $request->input('level'),
                 'gpa' => $request->input('gpa'),
                 'degree' => $request->input('degree'),
                 'duration' => $request->input('duration'),
@@ -83,6 +145,7 @@ class StudentsController extends Controller
                 'p2' => $request->input('p2'),
                 'linkedin' => $request->input('linkedin'),
                 'github' => $request->input('github'),
+                'image' => $filename
             ]);
     
             return response()->json(['message'=>$User->first()],200);

@@ -2,20 +2,76 @@
 <div>
 <body>
 <div class="col-12 bg">
-  <regfields></regfields>  
+  <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-3 mx-auto">
+        <div  class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center" id="register">Register</h5>
+            <form class="form-signin" @submit.prevent="submitForm">
+             <div class="form-label-group">
+                <input type="text" id="inputUserame" class="form-control" placeholder="Username" required v-model="user.index">
+                <label for="inputUserame">Index</label>
+              </div>
+              <!-- <div class="form-label-group">
+                <input type="text" id="reg" class="form-control" required v-model="user.reg">
+                <label for="inputUserame">Reg. Number</label>
+              </div> -->
+              <div class="form-label-group">
+                <input type="text" id="inputNumber" class="form-control" placeholder="Email address" required v-model="user.reg">
+                <label for="inputNumber">Reg. Number</label>
+              </div>
+              <div class="form-label-group">
+                <input type="text" id="inputEmail" class="form-control" placeholder="Email address" required v-model="user.name">
+                <label for="inputEmail">Full name</label>
+              </div>
+              
+              <hr>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required v-model="user.pass">
+                <label for="inputPassword">Password</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+                <label for="inputConfirmPassword">Confirm password</label>
+              </div>
+
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" @click="$router.push('/')">Sign In</button>
+
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="button"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>  
 </div>
 </body>
 </div>
 </template>
 
 <script>
-import regfields from '@/components/Register_Fields.vue'
 export default {
-     components:{
-       regfields
-     }
- }
-
+     data(){
+        return{
+            user:{
+                index:'S-',
+                reg:'',
+                name:'',
+                pass:''
+            }
+        }
+    },
+    methods:{
+        submitForm(){
+            this.$http.post("http://localhost:8000/api/addUser",this.user)
+            .then(function(response){
+                this.$router.push('/')
+            })   
+        }
+    }
+}
 </script>
 
 <style>

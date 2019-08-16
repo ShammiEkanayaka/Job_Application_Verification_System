@@ -17,14 +17,16 @@ class CreateStudentsTable extends Migration
            // $table->increments('id');
             $table->string('index');
             $table->primary(['index']);
-            $table->string('pass');
+            $table->string('reg');
             $table->string('name');
             $table->string('email')->nullable($value = true);
-            $table->integer('tel')->nullable($value = true);
+            $table->string('pass');
+            $table->string('tel')->nullable($value = true);
             $table->string('nic')->nullable($value = true);
             $table->string('loc')->nullable($value = true);
             $table->DATE('dob')->nullable($value = true);
             $table->string('course')->nullable($value = true);
+            $table->string('level')->nullable($value = true);
             $table->DECIMAL('gpa')->nullable($value = true);
             $table->string('degree')->nullable($value = true);
             $table->integer('duration')->nullable($value = true);
@@ -33,6 +35,7 @@ class CreateStudentsTable extends Migration
             $table->string('p2')->nullable($value = true);
             $table->string('linkedin')->nullable($value = true);
             $table->string('github')->nullable($value = true);
+            $table->string('image')->nullable($value = true);
             $table->timestamps();
         });
     }

@@ -28,6 +28,12 @@ Route::get('/getUser',[
 
 ]);
 
+Route::get('/getUser1/{id}',[
+
+    'uses'=>'StudentsController@getUser1'
+
+]);
+
 Route::delete('/deleteUser/{index}',[
 
     'uses'=>'StudentsController@deleteUser'

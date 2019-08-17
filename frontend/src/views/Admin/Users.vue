@@ -3,7 +3,7 @@
   <SideBar></SideBar>
  <div class="container">
   <div class="form">
-        <input type="text" class="form-control" placeholder="Search by Index Number" id="inputDefault">
+        <input type="text" v-model="filterInput" class="form-control" placeholder="Search by Index Number" id="inputDefault">
         <hr>
   </div>
 
@@ -19,7 +19,7 @@
     </tr>
   
   <tbody>
-    <tr v-for="(user, indx) in Users" v-bind:key="indx">
+    <tr v-for="(user, indx) in filterBy(Users, filterInput)" v-bind:key="indx">
       <th>{{user.index}}</th>
       <th>{{user.reg}}</th>
       <td>{{user.name}}</td>
@@ -45,8 +45,9 @@ export default {
   },
   data(){
     return{
-      Users:[]
-    }
+      Users:[],
+      filterInput: ''
+    } 
   },
   created(){
     this.$http.get("http://localhost:8000/api/getUser")
@@ -64,6 +65,11 @@ export default {
         
         this.Users.splice(event.target.title,1)
       })
+    },
+    filterBy(list, value){
+      return list.filter(function(user){
+        return user.index.indexOf(value) > -1;
+      });
     }
   }
 }

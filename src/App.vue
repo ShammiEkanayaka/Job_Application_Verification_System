@@ -1,32 +1,23 @@
 <template>
-  <div>
-    <app-nav></app-nav>
-    <app-home></app-home>
+  <div id="app">
+    
+    <navbar></navbar>
+    <router-view></router-view>
 
   </div>
+
 </template>
 
 <script>
-  
-  import Home from './components/Home.vue'
 
-  import HomeSecurity from './components2/HomeSecurity.vue'
+import Navbar from './components/Navbar.vue'
 
-  export default
-  {
-    components:{
+export default {
 
-      'app-home':Home,
-      'userAccount-Security': HomeSecurity
-
-
-    }
+  components:{
+    'navbar':Navbar
   }
-
+}
 
 </script>
 
-
-<style>
-
-</style>

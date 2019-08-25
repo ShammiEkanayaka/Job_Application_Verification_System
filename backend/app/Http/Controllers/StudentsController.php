@@ -145,7 +145,25 @@ class StudentsController extends Controller
                 'p2' => $request->input('p2'),
                 'linkedin' => $request->input('linkedin'),
                 'github' => $request->input('github'),
-                'image' => $filename
+                'image' => $filename,
+
+                'regb' => $request->input('regb'),
+                'nameb' => $request->input('nameb'),
+                'emailb' => $request->input('emailb'),
+                'telb' => $request->input('telb'),
+                'nicb' => $request->input('nicb'),
+                'locb' => $request->input('locb'),
+                'dobb' => $request->input('dobb'),
+                'courseb' => $request->input('courseb'),
+                'levelb' => $request->input('levelb'),
+                'gpab' => $request->input('gpab'),
+                'degreeb' => $request->input('degreeb'),
+                'durationb' => $request->input('durationb'),
+                'achievb' => $request->input('achievb'),
+                'p1b' => $request->input('p1b'),
+                'p2b' => $request->input('p2b'),
+                'linkedinb' => $request->input('linkedinb'),
+                'githubb' => $request->input('githubb')
             ]);
     
             return response()->json(['message'=>$User->first()],200);

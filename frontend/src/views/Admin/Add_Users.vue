@@ -13,14 +13,15 @@
                 <img v-show="user.image" :src="user.image" alt="Card image">
                 <img v-show="!user.image" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E" alt="Card image">
                 <div class="card-footer text-muted">
-                    <div class="form-group mb-1">
+                    <b-form-file size="sm" style="text-align: left" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..." @change="getImage($event)"></b-form-file>
+                    <!-- <div class="form-group mb-1">
                         <div class="input-group">
-                            <div class="custom-file">
+                            <div class="custom-file">                  
                                 <input type="file" @change="getImage($event)" class="form-control custom-file-input" name="image" id="inputGroupFile02">
                                 <small class="custom-file-label row" for="inputGroupFile02">Choose file</small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <small id="fileHelp" class="row form-text text-muted">Upload image with .jpg or .png extension</small>
                 </div>                
             </div>
@@ -28,6 +29,7 @@
 
             <div class="form-group row">  
                     <label class="col-sm-2 col-form-label">Index</label>
+                    
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="index" v-model="user.index">
                     </div>              
@@ -151,6 +153,20 @@
 </div>
 </template>
 
+<style scoped>
+img{
+  border-radius: 10px;
+  height: 250px;
+  width: 100%;
+  display: block;
+}
+
+label{
+  text-align: left;
+}
+</style>
+
+
 <script>
 import SideBar from '@/components/Side_Bar.vue'
 
@@ -202,15 +218,3 @@ export default {
  }
 </script>
 
-<style>
-img{
-  border-radius: 10px;
-  height: 200px;
-  width: 100%;
-  display: block;
-}
-
-label{
-  text-align: left;
-}
-</style>

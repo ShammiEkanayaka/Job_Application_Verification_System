@@ -14,72 +14,111 @@
                 <img v-else-if="!imaging" v-bind:src="'http://localhost:8000/Profile_Pic/'+user.image" alt="Card image">
                 <img v-else v-bind:src="user.image" alt="Card image">
                 <div class="card-footer text-muted">
-                    <div class="form-group mb-1">
+                    <b-form-file size="sm" style="text-align: left" placeholder="Choose a file or drop it here..." drop-placeholder="Drop file here..." @change="getImage($event)"></b-form-file>
+                    <!-- <div class="form-group mb-1">
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" @change="getImage($event)" class="form-control custom-file-input" name="image" id="inputGroupFile02">
                                 <small class="custom-file-label row" for="inputGroupFile02">Choose file</small>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <small id="fileHelp" class="row form-text text-muted">Upload image with .jpg or .png extension</small>
                 </div>                
             </div>
             </div>
+            
             <div class="form-group row">  
-                    <label class="col-sm-2 col-form-label">Index</label>
-                    <div class="col-sm-4">
+                    <label class="col-form-label">Index</label>
+                    <div class="col-sm">                        
                         <input type="text" class="form-control" id="index" v-model="user.index">
-                    </div>              
-                    <label class="col-sm-2 col-form-label">Reg. Number</label>
-                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <label class="col-form-label">Reg. Number</label>
+                    <div class="col-sm">
                          <input type="text" class="form-control" id="reg" placeholder="2016/SP/001" v-model="user.reg">
                     </div>
+                    <b-form-checkbox class="col-sm-1 small" :value='1' switch v-model="user.regb" :state="Boolean(user.regb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.regb)" :state="Boolean(user.regb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.regb)" :state="Boolean(user.regb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
             </div>
+
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Full Name</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">Full Name</label>
+                <div class="col-sm">
                 <input type="text" class="form-control" id="name" v-model="user.name" placeholder="full name">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.nameb" :state="Boolean(user.nameb)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.nameb)" :state="Boolean(user.nameb)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.nameb)" :state="Boolean(user.nameb)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-4">
+                <label class="col-form-label">Email</label>
+                <div class="col-sm">
                 <input type="email" class="form-control" id="email" placeholder="example@email.com" v-model="user.email">
                 </div>
-                <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-4">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.emailb" :state="Boolean(user.emailb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.emailb)" :state="Boolean(user.emailb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.emailb)" :state="Boolean(user.emailb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                <label for="inputPassword" class="col-form-label">Password</label>
+                    <div class="col-sm">
                          <input type="password" class="form-control" id="pass" v-model="user.pass" placeholder="Password">
                     </div>
+                <div class="col-sm-1"></div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Mobile</label>
-                <div class="col-sm-4">
+                <label class="col-form-label">Mobile</label>
+                <div class="col-sm">
                 <input type="tel" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="tel" placeholder="0##-###-####" v-model="user.tel">
                 </div>
-                <label class="col-sm-2 col-form-label">NIC</label>
-                <div class="col-sm-4">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.telb" :state="Boolean(user.telb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.telb)" :state="Boolean(user.telb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.telb)" :state="Boolean(user.telb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                <label class="col-form-label">NIC</label>
+                <div class="col-sm">
                 <input type="tel" class="form-control" id="nic" placeholder="#########v" v-model="user.nic">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.nicb" :state="Boolean(user.nicb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.nicb)" :state="Boolean(user.nicb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.nicb)" :state="Boolean(user.nicb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Location</label>
-                <div class="col-sm-4">
+                <label class="col-form-label">Location</label>
+                <div class="col-sm">
                 <input type="text" class="form-control" id="loc" placeholder="Distric" v-model="user.loc">
                 </div>
-           
-                <label class="col-sm-2 col-form-label">Date of Birth</label>
-                <div class="col-sm-4">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.locb" :state="Boolean(user.locb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.locb)" :state="Boolean(user.locb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.locb)" :state="Boolean(user.locb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                <label class="col-form-label">Date of Birth</label>
+                <div class="col-sm">
                 <input type="date" class="form-control" id="dob" v-model="user.dob">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.dobb" :state="Boolean(user.dobb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.dobb)" :state="Boolean(user.dobb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.dobb)" :state="Boolean(user.dobb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Course</label>
-                <div class="col-sm-4">
+                <label class="col-form-label">Course</label>
+                <div class="col-sm">
                 <input type="text" class="form-control" id="course" placeholder="course" v-model="user.course">
                 </div>
-                <label class="col-sm-2 col-form-label">Current Level</label>
-                <div class="col-sm-auto">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.courseb" :state="Boolean(user.courseb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.courseb)" :state="Boolean(user.courseb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.courseb)" :state="Boolean(user.courseb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                
+            </div>
+            <div class="form-group row">
+                <label class="col-form-label">Current Level</label>
+                <div class="col-sm">
                 <select class="form-control" id="level" v-model="user.level">
                     <option value="" disabled selected>Select Level</option>
                     <option>1G</option>
@@ -93,54 +132,90 @@
                     <option>4S</option>
                     </select>
                 </div>
-                <label class="col-sm-auto col-form-label">GPA</label>
-                <div class="col-sm-auto">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.levelb" :state="Boolean(user.levelb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.levelb)" :state="Boolean(user.levelb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.levelb)" :state="Boolean(user.levelb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                <label class="col-form-label">GPA</label>
+                <div class="col-sm">
                 <input type="number" min="0" max="4" step="0.001" class="form-control" id="gpa" placeholder="4.00" v-model="user.gpa">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.gpab" :state="Boolean(user.gpab)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.gpab)" :state="Boolean(user.gpab)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.gpab)" :state="Boolean(user.gpab)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Degree</label>
-                <div class="col-sm-7">
+                <label class="col-form-label">Degree</label>
+                <div class="col-sm-6">
                 <input type="text" class="form-control" id="degree" v-model="user.degree" placeholder="Bachelor of Science Honours in Computer Science [BSc Hons (ComputerSc)">
                 </div>
-                    <label class="col-sm-1 col-form-label">Duration</label>
-                    <div class="col-sm-2">
-                    <select class="form-control" id="duration" v-model="user.duration">
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.degreeb" :state="Boolean(user.degreeb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.degreeb)" :state="Boolean(user.degreeb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.degreeb)" :state="Boolean(user.degreeb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
+                    <label class="col-form-label" id="duration">Duration</label>
+                    <div class="col-sm">
+                    <select class="form-control" id="" v-model="user.duration">
                     <option value="" disabled selected>Select Years</option>
                     <option>3 years</option>
                     <option>4 years</option>
                     </select>
                     </div>
+                    <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.durationb" :state="Boolean(user.durationb)" name="checkbox-validation">
+                        <b-form-invalid-feedback v-show="!Boolean(user.durationb)" :state="Boolean(user.durationb)">Not Verified</b-form-invalid-feedback>
+                        <b-form-valid-feedback v-show="Boolean(user.durationb)" :state="Boolean(user.durationb)">Verified</b-form-valid-feedback>
+                    </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Achievements</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">Achievements</label>
+                <div class="col-sm">
                     <textarea class="form-control" id="achiev" rows="3" placeholder="Sports, Leadership" v-model="user.achiev"></textarea>
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.achievb" :state="Boolean(user.achievb)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.achievb)" :state="Boolean(user.achievb)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.achievb)" :state="Boolean(user.achievb)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Project - I</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">Project - I</label>
+                <div class="col-sm">
                     <textarea class="form-control" id="p1" rows="3" v-model="user.p1" placeholder="Description, Languages, Framework, Databases"></textarea>
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.p1b" :state="Boolean(user.p1b)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.p1b)" :state="Boolean(user.p1b)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.p1b)" :state="Boolean(user.p1b)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">Project - II</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">Project - II</label>
+                <div class="col-sm">
                     <textarea class="form-control" id="p2" rows="3" v-model="user.p2" placeholder="Description, Languages, Framework, Databases"></textarea>
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.p2b" :state="Boolean(user.p2b)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.p2b)" :state="Boolean(user.p2b)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.p2b)" :state="Boolean(user.p2b)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">LinkedIn</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">LinkedIn</label>
+                <div class="col-sm">
                 <input type="url" class="form-control" id="linkedin" v-model="user.linkedin" placeholder="https://www.linkedin.com/">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" switch v-model="user.linkedinb" :state="Boolean(user.linkedinb)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.linkedinb)" :state="Boolean(user.linkedinb)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.linkedinb)" :state="Boolean(user.linkedinb)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
-                <label class="col-sm-2 col-form-label">GitHub</label>
-                <div class="col-sm-10">
+                <label class="col-form-label">GitHub</label>
+                <div class="col-sm">
                 <input type="url" class="form-control" id="github" v-model="user.github" placeholder="https://github.com/">
                 </div>
+                <b-form-checkbox class="col-sm-1 small" :value="1" id="line" switch v-model="user.githubb" :state="Boolean(user.githubb)" name="checkbox-validation">
+                    <b-form-invalid-feedback v-show="!Boolean(user.githubb)" :state="Boolean(user.githubb)">Not Verified</b-form-invalid-feedback>
+                    <b-form-valid-feedback v-show="Boolean(user.githubb)" :state="Boolean(user.githubb)">Verified</b-form-valid-feedback>
+                </b-form-checkbox>
             </div>
             <div class="form-group row">
                 <button type="submit" class="btn btn-success" style="margin-left: 90%">Update</button>
@@ -182,7 +257,6 @@ export default {
              })
          },
          getImage(e){
-             console.log(e);
             var filereader = new FileReader();
             filereader.readAsDataURL(e.target.files[0]);
             filereader.onload = (e)=>{
@@ -193,3 +267,25 @@ export default {
      }
  }
 </script>
+
+<style scoped>
+img{
+  border-radius: 10px;
+  height: 250px;
+  width: 100%;
+  display: block;
+}
+
+.col-form-label{
+    text-align: left;
+    width: 100px;
+}
+
+#duration{
+    width: 90px;
+}
+.container{
+    margin-right: 150px;
+}
+
+</style>

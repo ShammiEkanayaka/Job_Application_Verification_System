@@ -45,3 +45,9 @@ Route::put('/editUser/{index}',[
     'uses'=>'StudentsController@editUser'
 
 ]);
+
+Route::put('/editUserStatus/{index}',[
+
+    'uses'=>'StudentsController@editUserStatus'
+
+]);

@@ -169,4 +169,22 @@ class StudentsController extends Controller
             return response()->json(['message'=>$User->first()],200);
      }
     }
+    public function editUserStatus(Request $request, $index){
+
+        $User = DB::table('Students')->where('index', '=', $index);
+ 
+        //$User = Students::where('index', '=', $index);
+         
+         if($User->first() == null){
+             return response()->json(['message'=>"User not found"],404);
+         }
+         else{
+
+            $User->update([
+                'status' => $request->input('status')
+            ]);
+    
+            return response()->json(['message'=>$User->first()],200);
+     }
+    }
 }

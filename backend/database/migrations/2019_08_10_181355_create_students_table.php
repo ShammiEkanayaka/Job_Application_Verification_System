@@ -17,6 +17,7 @@ class CreateStudentsTable extends Migration
            // $table->increments('id');
             $table->string('index');
             $table->primary(['index']);
+            $table->boolean('status')->default(false);
             $table->string('reg');
             $table->boolean('regb')->default(false);
             $table->string('name');

@@ -22,9 +22,17 @@
     <tr v-for="(user, indx) in filterBy(Users, filterInput)" v-bind:key="indx">
       <th>{{user.index}}</th>
       <th>{{user.reg}}</th>
-      <td>{{user.name}}</td>
+      <td align="left">{{user.name}}</td>
       <td>{{user.level}}</td>
-      <td>5</td>
+      <td>
+        <div class="row-center">
+        <b-form-invalid-feedback class="badge badge-pill badge-danger col-sm-auto small" v-show="!Boolean(user.status)" :state="Boolean(user.status)">Deactivate</b-form-invalid-feedback>
+        <b-form-valid-feedback class="badge badge-pill badge-success col-sm-auto small" v-show="Boolean(user.status)" :state="Boolean(user.status)">Activate</b-form-valid-feedback>
+        </div>
+        <div class="row-center">
+        <b-form-checkbox @input="updateInfo($event, user.index)" v-bind:id="user.index" :value="1" :title="indx" class="col-sm-auto" switch v-model="user.status" :state="Boolean(user.status)" name="checkbox-validation"/> 
+      </div>
+      </td>
       <td>
         <router-link class="btn btn-warning btn-sm" :to="'/edit/'+user.index">Edit</router-link>
         |
@@ -58,6 +66,7 @@ export default {
   },
   methods:{
     deleteUser(event){
+      console.log(event);
       this.$http.delete("http://localhost:8000/api/deleteUser/"+event.target.id)
       .then(function (response){
          /* var position = this.user.findIndex(function(element){
@@ -67,9 +76,16 @@ export default {
         this.Users.splice(event.target.title,1)
       })
     },
+    updateInfo($event, id){
+      console.log(event.target.title);
+      this.$http.put('http://localhost:8000/api/editUserStatus/'+event.target.id,this.Users[event.target.title])
+      .then(function(response){
+                 ;
+             })
+      },
     scrollToTop() {
                 window.scrollTo(0,0);
-           },
+     },
     filterBy(list, value){
       return list.filter(function(user){
         return user.index.indexOf(value) > -1;

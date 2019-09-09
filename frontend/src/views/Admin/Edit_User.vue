@@ -254,6 +254,7 @@ export default {
              this.$http.put('http://localhost:8000/api/editUser/'+this.$route.params.index,this.user)
              .then(function(response){
                  this.$router.push('/users');
+                 swal('Updated', 'User details updated', 'warning');
              })
          },
          getImage(e){

@@ -66,8 +66,15 @@ export default {
   },
   methods:{
     deleteUser(event){
-      console.log(event);
-      this.$http.delete("http://localhost:8000/api/deleteUser/"+event.target.id)
+      swal({
+        title: "Are you sure",
+        text: "Do you want delete "+event.target.id+" user?",
+        icon: 'error',
+        buttons: true,
+        dangerMode: true
+      }).then((willDelete)=>{
+        if(willDelete){
+          this.$http.delete("http://localhost:8000/api/deleteUser/"+event.target.id)
       .then(function (response){
          /* var position = this.user.findIndex(function(element){
           return element.id = event.target.id;
@@ -75,13 +82,17 @@ export default {
         
         this.Users.splice(event.target.title,1)
       })
+        }
+      })
+      
     },
     updateInfo($event, id){
       console.log(event.target.title);
       this.$http.put('http://localhost:8000/api/editUserStatus/'+event.target.id,this.Users[event.target.title])
       .then(function(response){
-                 ;
+                 swal('Updated', 'User status updated', 'warning');
              })
+             
       },
     scrollToTop() {
                 window.scrollTo(0,0);

@@ -204,7 +204,8 @@ export default {
         submitForm(){
             this.$http.post("http://localhost:8000/api/addUser",this.user)
             .then(function(response){
-                this.$router.push('/users')
+                this.$router.push('/users');
+                swal('Success', 'New student added', 'success');
             })   
         },
         getImage(e){

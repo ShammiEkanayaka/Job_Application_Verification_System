@@ -70,7 +70,8 @@ export default {
         title: "Are you sure",
         text: "Do you want delete "+event.target.id+" user?",
         icon: 'error',
-        buttons: true,
+        //buttons: true,
+        buttons: ["No", "Yes !"],
         dangerMode: true
       }).then((willDelete)=>{
         if(willDelete){

@@ -2,14 +2,58 @@
   <div>
     <SideBar></SideBar>
     <div class="container">
-      <form @submit.prevent="updateInfo">
+      <form @submit.prevent="updateInfo"><div class="nav-item dropdown show">
+  </div>
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4"></div>
+          <div class="col-sm-4 card mb-5 shadow">            
+            <div class="card-body">
+              <h6 class="card-subtitle text-muted">Profile picture</h6>
+            </div>
+            <img
+              v-if="!user.image"
+              src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
+              alt="Card image"
+            />
+            <img
+              v-else-if="!imaging"
+              v-bind:src="'http://localhost:8000/Profile_Pic/'+user.image"
+              alt="Card image"
+            />
+            <img v-else v-bind:src="user.image" alt="Card image" />
+            <div class="card-footer text-muted">
+              <b-form-file
+                size="sm"
+                style="text-align: left"
+                placeholder="Choose a file or drop it here..."
+                drop-placeholder="Drop file here..."
+                @change="getImage($event)"
+              ></b-form-file>
+              <!-- <div class="form-group mb-1">
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" @change="getImage($event)" class="form-control custom-file-input" name="image" id="inputGroupFile02">
+                                <small class="custom-file-label row" for="inputGroupFile02">Choose file</small>
+                            </div>
+                        </div>
+              </div>-->
+              <small
+                id="fileHelp"
+                class="row form-text text-muted"
+              >Upload image with .jpg or .png extension</small>
+            </div>
+          </div>
+        </div>
+
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Index</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Index</label>
+          <div class="col-sm">
             <input type="text" class="form-control" id="index" v-model="user.index" />
           </div>
-          <label class="col-sm-2 col-form-label">Reg. Number</label>
-          <div class="col-sm-4">
+          <div class="col-sm-1"></div>
+          <label class="col-form-label">Reg. Number</label>
+          <div class="col-sm">
             <input
               type="text"
               class="form-control"
@@ -19,9 +63,10 @@
             />
           </div>
         </div>
+
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Full Name</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">Full Name</label>
+          <div class="col-sm">
             <input
               type="text"
               class="form-control"
@@ -32,8 +77,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Email</label>
+          <div class="col-sm">
             <input
               type="email"
               class="form-control"
@@ -42,8 +87,8 @@
               v-model="user.email"
             />
           </div>
-          <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-4">
+          <label for="inputPassword" class="col-form-label">Password</label>
+          <div class="col-sm">
             <input
               type="password"
               class="form-control"
@@ -52,10 +97,11 @@
               placeholder="Password"
             />
           </div>
+          <div class="col-sm-1"></div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Mobile</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Mobile</label>
+          <div class="col-sm">
             <input
               type="tel"
               class="form-control"
@@ -65,8 +111,8 @@
               v-model="user.tel"
             />
           </div>
-          <label class="col-sm-2 col-form-label">NIC</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">NIC</label>
+          <div class="col-sm">
             <input
               type="tel"
               class="form-control"
@@ -77,8 +123,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Location</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Location</label>
+          <div class="col-sm">
             <input
               type="text"
               class="form-control"
@@ -87,15 +133,14 @@
               v-model="user.loc"
             />
           </div>
-
-          <label class="col-sm-2 col-form-label">Date of Birth</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Date of Birth</label>
+          <div class="col-sm">
             <input type="date" class="form-control" id="dob" v-model="user.dob" />
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Course</label>
-          <div class="col-sm-4">
+          <label class="col-form-label">Course</label>
+          <div class="col-sm">
             <input
               type="text"
               class="form-control"
@@ -104,8 +149,10 @@
               v-model="user.course"
             />
           </div>
-          <label class="col-sm-2 col-form-label">Current Level</label>
-          <div class="col-sm-auto">
+        </div>
+        <div class="form-group row">
+          <label class="col-form-label">Current Level</label>
+          <div class="col-sm">
             <select class="form-control" id="level" v-model="user.level">
               <option value disabled selected>Select Level</option>
               <option>1G</option>
@@ -119,8 +166,8 @@
               <option>4S</option>
             </select>
           </div>
-          <label class="col-sm-auto col-form-label">GPA</label>
-          <div class="col-sm-auto">
+          <label class="col-form-label">GPA</label>
+          <div class="col-sm">
             <input
               type="number"
               min="0"
@@ -134,8 +181,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Degree</label>
-          <div class="col-sm-7">
+          <label class="col-form-label">Degree</label>
+          <div class="col-sm-6">
             <input
               type="text"
               class="form-control"
@@ -144,9 +191,9 @@
               placeholder="Bachelor of Science Honours in Computer Science [BSc Hons (ComputerSc)"
             />
           </div>
-          <label class="col-sm-1 col-form-label">Duration</label>
-          <div class="col-sm-2">
-            <select class="form-control" id="duration" v-model="user.duration">
+          <label class="col-form-label" id="duration">Duration</label>
+          <div class="col-sm">
+            <select class="form-control" id v-model="user.duration">
               <option value disabled selected>Select Years</option>
               <option>3 years</option>
               <option>4 years</option>
@@ -154,8 +201,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Achievements</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">Achievements</label>
+          <div class="col-sm">
             <textarea
               class="form-control"
               id="achiev"
@@ -166,8 +213,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Project - I</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">Project - I</label>
+          <div class="col-sm">
             <textarea
               class="form-control"
               id="p1"
@@ -178,8 +225,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">Project - II</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">Project - II</label>
+          <div class="col-sm">
             <textarea
               class="form-control"
               id="p2"
@@ -190,8 +237,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">LinkedIn</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">LinkedIn</label>
+          <div class="col-sm">
             <input
               type="url"
               class="form-control"
@@ -202,8 +249,8 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label">GitHub</label>
-          <div class="col-sm-10">
+          <label class="col-form-label">GitHub</label>
+          <div class="col-sm">
             <input
               type="url"
               class="form-control"
@@ -222,24 +269,26 @@
 </template>
 
 <script>
-import SideBar from "@/components/Side_Bar.vue";
-
 export default {
-  components: {
-    SideBar
-  },
   created() {
     this.getData();
   },
   data() {
     return {
-      user: {}
+      user: {},
+      imaging: false
     };
   },
   methods: {
     getData() {
+      //console.log(localStorage.index);
       this.$http
-        .get("http://localhost:8000/api/getUser1/" + this.$route.params.index)
+        .get("http://localhost:8000/api/getUser1/" + localStorage.index, {
+          //this.$route.params.index, {
+          headers: {
+            Authorization: `Bearer ${localStorage.usertoken}`
+          }
+        })
         .then(function(response) {
           this.user = response.body["0"].user;
         });
@@ -247,13 +296,43 @@ export default {
     updateInfo() {
       this.$http
         .put(
-          "http://localhost:8000/api/editUser/" + this.$route.params.index,
+          "http://localhost:8000/api/editUser/" + localStorage.index,
           this.user
         )
         .then(function(response) {
-          this.$router.push("/users");
+          swal("Updated", "User details updated", "warning");
         });
-    }
+    },
+    getImage(e) {
+      var filereader = new FileReader();
+      filereader.readAsDataURL(e.target.files[0]);
+      filereader.onload = e => {
+        this.user.image = e.target.result;
+      };
+      this.imaging = true;
+    },
+    
   }
 };
 </script>
+
+<style scoped>
+img {
+  border-radius: 10px;
+  height: 250px;
+  width: 100%;
+  display: block;
+}
+
+.col-form-label {
+  text-align: left;
+  width: 100px;
+}
+
+#duration {
+  width: 90px;
+}
+.container {
+  margin-right: 150px;
+}
+</style>

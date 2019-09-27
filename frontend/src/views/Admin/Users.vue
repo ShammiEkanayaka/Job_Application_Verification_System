@@ -46,11 +46,12 @@
 </template>
 
 <script>
-import SideBar from '@/components/Side_Bar.vue'
+//import EventBus from "@/EventBus";
+//import SideBar from '@/components/Side_Bar.vue'
 export default {
-  components:{
+  /* components:{
     SideBar
-  },
+  }, */
   data(){
     return{
       Users:[],
@@ -59,7 +60,11 @@ export default {
   },
   created(){
     this.scrollToTop();
-    this.$http.get("http://localhost:8000/api/getUser")
+    this.$http.get("http://localhost:8000/api/getUser",{
+          headers: {
+            Authorization: `Bearer ${localStorage.usertoken}`
+          }
+        })
     .then(function (response){
       this.Users = response.body.allUser;
     });
@@ -88,7 +93,7 @@ export default {
       
     },
     updateInfo($event, id){
-      console.log(event.target.title);
+      //console.log(event.target.title);
       this.$http.put('http://localhost:8000/api/editUserStatus/'+event.target.id,this.Users[event.target.title])
       .then(function(response){
                  swal('Updated', 'User status updated', 'warning');

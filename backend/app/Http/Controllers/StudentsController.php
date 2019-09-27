@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Students;
+use App\User;
 use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
@@ -54,6 +55,14 @@ class StudentsController extends Controller
         }
 
         $user->save();
+
+        User::create([
+            'index'=>$request->index,
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>bcrypt($request->pass)
+        ]);
+
         return response()->json(['message'=>$user],201);
     }
 

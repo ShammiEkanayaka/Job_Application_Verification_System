@@ -8,6 +8,8 @@ import Add from "./views/Admin/Add_Users.vue";
 import Edit from "./views/Admin/Edit_User.vue";
 import Edituser from "./views/User/Edit_User.vue";
 import Guest from "./views/User/Guest_view.vue";
+//import user1 from "./views/User/user1.vue";
+import adminlogin from "./views/Login/AdminLogin";
 
 Vue.use(Router);
 
@@ -17,7 +19,10 @@ export default new Router({
     {
       path: "/login",
       name: "login",
-      component: Login_Page
+      component: Login_Page,
+      meta: {
+        visitor: true,
+      }
     },
     {
       path: "/",
@@ -32,27 +37,47 @@ export default new Router({
     {
       path: "/users",
       name: "users",
-      component: Users
+      component: Users,
+      meta: {
+        admin: true,
+      }
     },
     {
       path: "/add",
       name: "add",
-      component: Add
+      component: Add,
+      meta: {
+        admin: true,
+      }
     },
     {
       path: "/edit/:index",
       name: "edit",
-      component: Edit
+      component: Edit,
+      meta: {
+        admin: true,
+      }
     },
     {
-      path: "/editUser/:index",
+      path: "/editUser",
       name: "editUser",
-      component: Edituser
+      component: Edituser,
+      meta: {
+        user: true,
+      }
     },
     {
       path: "/guest/:index",
       name: "guest",
       component: Guest
+    },
+    {
+      path: "/admin/login",
+      name: "adminlogin",
+      component: adminlogin,
+      meta: {
+        visitor: true,
+      }
     },
     {
       path: "/about",

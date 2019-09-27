@@ -13,26 +13,40 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('user/{userId}/detail', 'UserController@show');
+    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']);
 });
 
+Route::middleware('auth:admin-api')->group(function () {
+    Route::get('admin', 'AdminController@show');
+    Route::get('/getUser',['uses'=>'StudentsController@getUser']);
+    Route::get('/getUserA/{id}',['uses'=>'StudentsController@getUser1']);
+});
+
+Route::post('admin/login', 'Auth\AdminLoginController@login');
+
+
+Route::post('register','AuthController@register');
+
+Route::post('login','AuthController@login');
+
+Route::middleware('auth:api,admin-api')->group(function () {
+    Route::get('/logout', 'AuthController@logout')->name('logout');
+});
+
+//Route::get('logout','AuthController@logout');
+
+
+// student table
 Route::post('/addUser',[
 
     'uses'=>'StudentsController@postUser'
 ]);
 
-Route::get('/getUser',[
 
-    'uses'=>'StudentsController@getUser'
 
-]);
 
-Route::get('/getUser1/{id}',[
-
-    'uses'=>'StudentsController@getUser1'
-
-]);
 
 Route::delete('/deleteUser/{index}',[
 

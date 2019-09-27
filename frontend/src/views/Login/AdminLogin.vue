@@ -6,58 +6,20 @@
         <div class="col-sm-9 col-md-7 col-lg-3 mx-auto">
           <div class="card card-signin my-5">
             <div class="card-body">
-              <h5 class="card-title text-center" id="register">Register</h5>
+              <h5 class="card-title text-center">Admin Login</h5>
               <form class="form-signin" @submit.prevent="submitForm">
                 <div class="form-label-group">
                   <input
-                    type="text"
-                    id="inputUserame"
-                    class="form-control"
-                    placeholder="Username"
-                    required
-                    v-model="user.index"
-                  />
-                  <label for="inputUserame">Index</label>
-                </div>
-                <!-- <div class="form-label-group">
-                <input type="text" id="reg" class="form-control" required v-model="user.reg">
-                <label for="inputUserame">Reg. Number</label>
-                </div>-->
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputNumber"
-                    class="form-control"
-                    placeholder="Email address"
-                    required
-                    v-model="user.reg"
-                  />
-                  <label for="inputNumber">Reg. Number</label>
-                </div>
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputConfirmPassword"
-                    class="form-control"
-                    placeholder="Email"
-                    required
-                    v-model="user.email"
-                  />
-                  <label for="inputConfirmPassword">Email Address</label>
-                </div>
-                <div class="form-label-group">
-                  <input
-                    type="text"
+                    type="email"
                     id="inputEmail"
                     class="form-control"
                     placeholder="Email address"
                     required
-                    v-model="user.name"
+                    autofocus
+                    v-model="user.email"
                   />
-                  <label for="inputEmail">Full name</label>
+                  <label for="inputEmail">Email</label>
                 </div>
-
-                <hr />
 
                 <div class="form-label-group">
                   <input
@@ -66,26 +28,25 @@
                     class="form-control"
                     placeholder="Password"
                     required
-                    v-model="user.pass"
+                    v-model="user.password"
                   />
                   <label for="inputPassword">Password</label>
                 </div>
-                <button
-                  class="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="submit"
-                >Register</button>
-                <button
-                  class="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="button"
-                  @click="$router.push('/login')"
-                >Login</button>
-                <p style="text-align:center; font-size:11px;">
-                  COPYRIGHT © 2015-2019
-                  <br />FACULTY OF SCIENCE.
-                  <br />UNIVERSITY OF JAFFNA.
-                  <br />ALL RIGHTS RESERVED.
-                </p>
+
+                <div class="custom-control custom-checkbox mb-3">
+                  <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                  <label class="custom-control-label" for="customCheck1">Remember password</label>
+                </div>
+                <hr class="my-4" />
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+                <button @click="$router.push('/login')" class="btn btn-lg btn-primary btn-block text-uppercase" type="button">User Login</button>
               </form>
+              <p style="text-align:center; font-size:11px;">
+                COPYRIGHT © 2015-2019
+                <br />FACULTY OF SCIENCE.
+                <br />UNIVERSITY OF JAFFNA.
+                <br />ALL RIGHTS RESERVED.
+              </p>
             </div>
           </div>
         </div>
@@ -96,15 +57,14 @@
 </template>
 
 <script>
+//import EventBus from "@/EventBus";
+
 export default {
   data() {
     return {
       user: {
-        index: "S-",
-        reg: "",
-        name: "",
         email: "",
-        pass: ""
+        password: ""
       }
     };
   },
@@ -114,28 +74,23 @@ export default {
   methods: {
     submitForm() {
       this.$http
-        .post("http://localhost:8000/api/addUser", this.user)
+        .post("http://localhost:8000/api/admin/login", this.user)
         .then(function(response) {
-          swal({
-            title: "Registered",
-            text: "Please contact system administrator to activate your account",
-            icon: "success",
-            button: "Ok"
-          });
-          this.$router.push("/login");
+          var res = response.body.token.token.name.split("-", 1);
+          //console.log(response.body.token.accessToken);
+          localStorage.setItem("usertoken", response.body.token.accessToken);
+          localStorage.setItem("email", res[0]);
+          //this.emitMethod();
+          this.$store.commit('updateEmail', localStorage.getItem('email'));
+          this.$router.push("/users");
         });
     },
+    /* emitMethod() {
+      EventBus.$emit("logged-in", "adminlog");
+    }, */
     scrollToTop() {
       window.scrollTo(0, 0);
     }
-    /* submitForm() {
-      this.$http
-        .post("http://localhost:8000/api/register", this.user)
-        .then(function(response) {
-          console.log(response);
-          this.$router.push("/login");
-        });
-    } */
   }
 };
 </script>

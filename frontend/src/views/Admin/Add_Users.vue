@@ -168,12 +168,12 @@ label{
 
 
 <script>
-import SideBar from '@/components/Side_Bar.vue'
+//import SideBar from '@/components/Side_Bar.vue'
 
 export default {
-     components:{
+     /* components:{
        SideBar
-     },
+     }, */
      data(){
         return{
             user:{

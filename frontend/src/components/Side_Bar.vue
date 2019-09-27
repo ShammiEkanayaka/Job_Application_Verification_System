@@ -23,127 +23,128 @@
 </template>
 
 <script>
-  export default {
-    data: () => {
-      return {
-        showSidebar: false,
-        showLink: false
-      }
-    },
-    methods: {
-      showNav() {
-        if(this.showSidebar) {
-          this.showLink = false;
-          setTimeout(() => {
-            this.showSidebar = false;
-          }, 500);
-        }
-        else {
-          this.showSidebar = true;
-          setTimeout(() => {
-            this.showLink = true;
-          }, 500);
-        }
+export default {
+  data: () => {
+    return {
+      showSidebar: false,
+      showLink: false
+    };
+  },
+  methods: {
+    showNav() {
+      if (this.showSidebar) {
+        this.showLink = false;
+        setTimeout(() => {
+          this.showSidebar = false;
+        }, 500);
+      } else {
+        this.showSidebar = true;
+        setTimeout(() => {
+          this.showLink = true;
+        }, 500);
       }
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
-  .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 60px;
-    padding: 5px;
-    min-height: calc(200vh - 20px);
-    background-color: rgba($color: #81B121, $alpha: .8);
-    border: solid #fff;
-    border-width: 0 1px 0 0;
-    z-index: 999;
-    transition: all .5s ease-in-out;
-    .control {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 50px;
-      margin-bottom: 10px;
-      i {
-        font-size: 2rem;
-        cursor: pointer;
-        transition: all .5s ease-in-out;
-      }
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  padding: 5px;
+  min-height: calc(200vh - 20px);
+  background-color: rgba($color: #81b121, $alpha: 0.8);
+  border: solid #fff;
+  border-width: 0 1px 0 0;
+  z-index: 999;
+  transition: all 0.5s ease-in-out;
+  .control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    margin-bottom: 10px;
+    i {
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
     }
-    &.show {
-      width: 180px;
-      .control > i {
-        color: #fff;
-        transform: rotateZ(-180deg);
-      }
-      .navigation-icons {
-        color: #fff;
-      }
+  }
+  &.show {
+    width: 180px;
+    .control > i {
+      color: #fff;
+      transform: rotateZ(-180deg);
     }
     .navigation-icons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      width: 50px;
-      float: left;
-      i {
-        font-size: 2rem;
-        padding: 10px 0;
-        cursor: pointer;
-        transition: all .5s ease-in-out;
-        &:hover {
-          color: #fff;
-        }
-      }
+      color: #fff;
     }
-    .navigation-links {
-      padding-top: 14px;
-      float: left;
-      div {
-        font-size: 1.35rem;
-        padding-left: 10px;
-        margin-bottom: 20px;
-        cursor: pointer;
-        &:hover {
-          color: #fff;
-        }
+  }
+  .navigation-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50px;
+    float: left;
+    i {
+      font-size: 2rem;
+      padding: 10px 0;
+      cursor: pointer;
+      transition: all 0.5s ease-in-out;
+      &:hover {
+        color: #fff;
       }
     }
   }
-  @mixin nav-childs($values...) {
-    @each $var in $values {
-      &:nth-child(#{$var}) {
-        transition: transform linear calc(.1s * #{$var}), display .5s;
+  .navigation-links {
+    padding-top: 14px;
+    float: left;
+    div {
+      font-size: 1.35rem;
+      padding-left: 10px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      &:hover {
+        color: #fff;
       }
     }
   }
-  .fade-enter-active, .fade-leave-active {
-    @include nav-childs(1,2,3,4,5);
+}
+@mixin nav-childs($values...) {
+  @each $var in $values {
+    &:nth-child(#{$var}) {
+      transition: transform linear calc(0.1s * #{$var}), display 0.5s;
+    }
   }
-  .fade-enter, .fade-leave-to {
-    transform: scale(0);
-  }
+}
+.fade-enter-active,
+.fade-leave-active {
+  @include nav-childs(1, 2, 3, 4, 5);
+}
+.fade-enter,
+.fade-leave-to {
+  transform: scale(0);
+}
 
-  //@import url('https://fonts.googleapis.com/css?family=Anton');
-  @import url('https://use.fontawesome.com/releases/v5.8.2/css/all.css');
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  .app {
-    font-family: 'Anton', Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    color: #322F42;
-    width: 100%;
-    min-height: 100vh;
-   // background: url('./assets/app_bg.jpg') center center;
-    background-size: cover;
-    overflow: hidden;
-  }
+//@import url('https://fonts.googleapis.com/css?family=Anton');
+@import url("https://use.fontawesome.com/releases/v5.8.2/css/all.css");
+body {
+  margin: 0;
+  padding: 0;
+}
+.app {
+  font-family: "Anton", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: #322f42;
+  width: 100%;
+  min-height: 100vh;
+  // background: url('./assets/app_bg.jpg') center center;
+  background-size: cover;
+  overflow: hidden;
+}
 </style>

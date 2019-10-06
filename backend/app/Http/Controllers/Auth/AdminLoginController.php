@@ -37,8 +37,9 @@ class AdminLoginController extends Controller
                 'token' => $token
             ]);
         }
-        
-        return response()->json(['message' => 'invalied email or password']);
+        else {
+            return response()->json(['error'=>'Invalied password'], 401);
+        }
     }
     
 }

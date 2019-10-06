@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user/{userId}/detail', 'UserController@show');
-    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']);
+    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']); //student get himself details
 });
 
 Route::middleware('auth:admin-api')->group(function () {
@@ -26,8 +26,9 @@ Route::middleware('auth:admin-api')->group(function () {
 
 Route::post('admin/login', 'Auth\AdminLoginController@login');
 
+Route::get('/guestUser/{id}',['uses'=>'StudentsController@guestUser']);
 
-Route::post('register','AuthController@register');
+//Route::post('register','AuthController@register');
 
 Route::post('login','AuthController@login');
 
@@ -44,13 +45,15 @@ Route::post('/addUser',[
     'uses'=>'StudentsController@postUser'
 ]);
 
-
-
-
-
 Route::delete('/deleteUser/{index}',[
 
     'uses'=>'StudentsController@deleteUser'
+
+]);
+
+Route::put('/updateUserU/{index}',[        //user update his details
+
+    'uses'=>'StudentsController@updateUserU'
 
 ]);
 

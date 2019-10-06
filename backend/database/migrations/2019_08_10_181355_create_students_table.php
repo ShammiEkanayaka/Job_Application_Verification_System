@@ -41,7 +41,7 @@ class CreateStudentsTable extends Migration
             $table->boolean('gpab')->default(false);
             $table->string('degree')->nullable($value = true);
             $table->boolean('degreeb')->default(false);
-            $table->integer('duration')->nullable($value = true);
+            $table->string('duration')->nullable($value = true);
             $table->boolean('durationb')->default(false);
             $table->string('achiev')->nullable($value = true);
             $table->boolean('achievb')->default(false);
@@ -53,6 +53,9 @@ class CreateStudentsTable extends Migration
             $table->boolean('linkedinb')->default(false);
             $table->string('github')->nullable($value = true);
             $table->boolean('githubb')->default(false);
+            $table->string('facebook')->nullable($value = true);
+            $table->boolean('facebookb')->default(false);
+            $table->string('AccessLink')->nullable($value = true);
             $table->string('image')->nullable($value = true);
             $table->timestamps();
         });

@@ -39,12 +39,21 @@ class AuthController extends Controller
 
         if(Auth::guard('web')->attempt(['index'=>$request->index, 'password'=>$request->password])){
             $user = Auth::guard('web')->user();
+            if($user->status == 1){
+                $token = $user->createToken($user->index.'_'.now());
 
-            $token = $user->createToken($user->index.'_'.now());
-
-            return response()->json([
-                'token' => $token
-            ]);
+                return response()->json([
+                    'token' => $token
+                ]);  
+            }
+            else
+            {
+                return response()->json(['error'=>'User has been deactivated'], 423);
+            }
+            
+        }
+        else {
+            return response()->json(['error'=>'Invalied password'], 401);
         }
     }
     public function logout (Request $request) {

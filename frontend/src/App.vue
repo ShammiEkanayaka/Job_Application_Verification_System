@@ -21,9 +21,6 @@
           <li class="nav-item">
             <a class="nav-link" @click="$router.push('/register')">Register</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" @click="$router.push('/about')">Contact</a>
-          </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item dropdown">

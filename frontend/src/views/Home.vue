@@ -6,19 +6,23 @@
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src=".\HomeImage\01.jpeg" class="d-block w-100" alt="..." />
+          <img src=".\HomeImage\01.jpg" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item">
-          <img src=".\HomeImage\02.jpg" class="d-block w-100" alt="..." />
+          <img src=".\HomeImage\02.png" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item">
           <img src=".\HomeImage\03.jpg" class="d-block w-100" alt="..." />
         </div>
         <div class="carousel-item">
-          <img src=".\HomeImage\04.jpg" class="d-block w-100" alt="..." />
+          <img src=".\HomeImage\04.png" class="d-block w-100" alt="..." />
+        </div>
+        <div class="carousel-item">
+          <img src=".\HomeImage\05.jpg" class="d-block w-100" alt="..." />
         </div>
       </div>
       <a

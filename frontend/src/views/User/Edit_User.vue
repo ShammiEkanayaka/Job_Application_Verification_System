@@ -35,7 +35,6 @@
                     v-on:change="validate"
                     @change="getImage($event)"
                   />
-                  <b-button pill variant="outline-danger">Remove</b-button>
                   <small
                     id="fileHelp"
                     class="row form-text text-muted"

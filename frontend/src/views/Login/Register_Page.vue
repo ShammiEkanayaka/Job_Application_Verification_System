@@ -7,85 +7,120 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center" id="register">Register</h5>
-              <form class="form-signin" @submit.prevent="submitForm">
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputUserame"
-                    class="form-control"
-                    placeholder="Username"
-                    required
-                    v-model="user.index"
-                  />
-                  <label for="inputUserame">Index</label>
-                </div>
-                <!-- <div class="form-label-group">
+              <ValidationObserver ref="observer" v-slot="{ passes }">
+                <form class="form-signin" @submit.prevent="passes(submitForm)">
+                  <validation-provider
+                    :rules="{ regex: /^S-[0-9]{4}$/ }"
+                    v-slot="{ valid, errors }"
+                  >
+                    <div class="form-label-group">
+                      <input
+                        type="text"
+                        id="inputUserame"
+                        class="form-control"
+                        placeholder="Username"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        required
+                        v-model="user.index"
+                      />
+                      <div id="index" class="valid-feedback text-left">Looks Good</div>
+                      <div id="index" class="invalid-feedback text-left">{{ errors[0] }}</div>
+
+                      <label for="inputUserame">Index</label>
+                    </div>
+                  </validation-provider>
+                  <!-- <div class="form-label-group">
                 <input type="text" id="reg" class="form-control" required v-model="user.reg">
                 <label for="inputUserame">Reg. Number</label>
-                </div>-->
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputNumber"
-                    class="form-control"
-                    placeholder="Email address"
-                    required
-                    v-model="user.reg"
-                  />
-                  <label for="inputNumber">Reg. Number</label>
-                </div>
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputConfirmPassword"
-                    class="form-control"
-                    placeholder="Email"
-                    required
-                    v-model="user.email"
-                  />
-                  <label for="inputConfirmPassword">Email Address</label>
-                </div>
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputEmail"
-                    class="form-control"
-                    placeholder="Email address"
-                    required
-                    v-model="user.name"
-                  />
-                  <label for="inputEmail">Full name</label>
-                </div>
+                  </div>-->
+                  <validation-provider
+                    :rules="{ regex: /^[0-9]{4}[/](SP|CSC)[/][0-9]{3}$/ }"
+                    v-slot="{ valid, errors }"
+                  >
+                    <div class="form-label-group">
+                      <input
+                        type="text"
+                        id="inputNumber"
+                        class="form-control"
+                        placeholder="Email address"
+                        required
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        v-model="user.reg"
+                      />
+                      <div id="index" class="valid-feedback text-left">Looks Good</div>
+                      <div id="index" class="invalid-feedback text-left">{{ errors[0] }}</div>
 
-                <hr />
-
-                <div class="form-label-group">
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-                    v-model="user.pass"
-                  />
-                  <label for="inputPassword">Password</label>
-                </div>
-                <button
-                  class="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="submit"
-                >Register</button>
-                <button
-                  class="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="button"
-                  @click="$router.push('/login')"
-                >Login</button>
-                <p style="text-align:center; font-size:11px;">
-                  COPYRIGHT © 2015-2019
-                  <br />FACULTY OF SCIENCE.
-                  <br />UNIVERSITY OF JAFFNA.
-                  <br />ALL RIGHTS RESERVED.
-                </p>
-              </form>
+                      <label for="inputNumber">Reg. Number</label>
+                    </div>
+                  </validation-provider>
+                  <validation-provider rules="required|email" v-slot="{ valid, errors }">
+                    <div class="form-label-group">
+                      <input
+                        type="text"
+                        id="inputConfirmPassword"
+                        class="form-control"
+                        placeholder="Email"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        v-model="user.email"
+                      />
+                      <div id="email" class="valid-feedback text-left">Looks Good</div>
+                      <div id="email" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputConfirmPassword">Email Address</label>
+                    </div>
+                  </validation-provider>
+                  <validation-provider
+                    rules="required|max:255|alpha_spaces"
+                    v-slot="{ valid, errors }"
+                  >
+                    <div class="form-label-group">
+                      <input
+                        type="text"
+                        id="inputEmail"
+                        class="form-control"
+                        placeholder="Email address"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        v-model="user.name"
+                      />
+                      <div id="level" class="valid-feedback text-left">Looks Good</div>
+                      <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputEmail">Full name</label>
+                    </div>
+                  </validation-provider>
+                  <hr />
+                  <validation-provider rules="required|min:6" v-slot="{ valid, errors }">
+                    <div class="form-label-group">
+                      <input
+                        type="password"
+                        id="inputPassword"
+                        class="form-control"
+                        placeholder="Password"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        v-model="user.pass"
+                      />
+                      <div id="level" class="valid-feedback text-left">Looks Good</div>
+                      <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputPassword">Password</label>
+                    </div>
+                  </validation-provider>
+                  <button
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="submit"
+                  >Register</button>
+                  <p style="text-align:center; font-size:11px;">Already a member?</p>
+                  <p id="sm"></p>
+                  <button
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="button"
+                    @click="$router.push('/login')"
+                  >Login</button>
+                  <p style="text-align:center; font-size:11px;">
+                    COPYRIGHT © 2015-2019
+                    <br />FACULTY OF SCIENCE.
+                    <br />UNIVERSITY OF JAFFNA.
+                    <br />ALL RIGHTS RESERVED.
+                  </p>
+                </form>
+              </ValidationObserver>
             </div>
           </div>
         </div>
@@ -118,11 +153,22 @@ export default {
         .then(function(response) {
           swal({
             title: "Registered",
-            text: "Please contact system administrator to activate your account",
+            text:
+              "Please contact system administrator to activate your account",
             icon: "success",
             button: "Ok"
           });
           this.$router.push("/login");
+        })
+        .catch(error => {
+          if (error.status === 422) {
+            swal({
+              title: "Invalied Input",
+              text: "The index has already been registered",
+              icon: "warning",
+              button: "Ok"
+            });
+          }
         });
     },
     scrollToTop() {
@@ -141,6 +187,10 @@ export default {
 </script>
 
 <style>
+.sm {
+  text-align: center;
+}
+
 .bg {
   /* The image used */
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");

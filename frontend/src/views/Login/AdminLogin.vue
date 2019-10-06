@@ -7,40 +7,53 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Admin Login</h5>
-              <form class="form-signin" @submit.prevent="submitForm">
-                <div class="form-label-group">
-                  <input
-                    type="email"
-                    id="inputEmail"
-                    class="form-control"
-                    placeholder="Email address"
-                    required
-                    autofocus
-                    v-model="user.email"
-                  />
-                  <label for="inputEmail">Email</label>
-                </div>
+              <ValidationObserver ref="observer" v-slot="{ passes }">
+                <form class="form-signin" @submit.prevent="passes(submitForm)">
+                  <validation-provider rules="required|email" v-slot="{ valid, errors }">
+                    <div class="form-label-group">
+                      <input
+                        type="email"
+                        id="inputEmail"
+                        class="form-control"
+                        placeholder="Email address"
+                        required
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        autofocus
+                        v-model="user.email"
+                      />
+                      <div id="email" class="valid-feedback text-left">Looks Good</div>
+                      <div id="email" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputEmail">Email</label>
+                    </div>
+                  </validation-provider>
+                  <div class="form-label-group">
+                    <input
+                      type="password"
+                      id="inputPassword"
+                      class="form-control"
+                      placeholder="Password"
+                      required
+                      v-model="user.password"
+                    />
+                    <label for="inputPassword">Password</label>
+                  </div>
 
-                <div class="form-label-group">
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-                    v-model="user.password"
-                  />
-                  <label for="inputPassword">Password</label>
-                </div>
-
-                <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                  <label class="custom-control-label" for="customCheck1">Remember password</label>
-                </div>
-                <hr class="my-4" />
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
-                <button @click="$router.push('/login')" class="btn btn-lg btn-primary btn-block text-uppercase" type="button">User Login</button>
-              </form>
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                  </div>
+                  <hr class="my-4" />
+                  <button
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="submit"
+                  >Login</button>
+                  <button
+                    @click="$router.push('/login')"
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="button"
+                  >User Login</button>
+                </form>
+              </ValidationObserver>
               <p style="text-align:center; font-size:11px;">
                 COPYRIGHT © 2015-2019
                 <br />FACULTY OF SCIENCE.
@@ -81,8 +94,25 @@ export default {
           localStorage.setItem("usertoken", response.body.token.accessToken);
           localStorage.setItem("email", res[0]);
           //this.emitMethod();
-          this.$store.commit('updateEmail', localStorage.getItem('email'));
+          this.$store.commit("updateEmail", localStorage.getItem("email"));
           this.$router.push("/users");
+        })
+        .catch(error => {
+          if (error.status === 422) {
+            swal({
+              title: "Invalied Input",
+              text: "Insert Registered Email Address",
+              icon: "warning",
+              button: "Ok"
+            });
+          } else {
+            swal({
+              title: "Invalied Input",
+              text: "Insert Valied Password",
+              icon: "warning",
+              button: "Ok"
+            });
+          }
         });
     },
     /* emitMethod() {
@@ -211,7 +241,7 @@ export default {
   color: #777;
 }
 
-.btn-google {
+/* .btn-google {
   color: white;
   background-color: #ea4335;
 }
@@ -219,7 +249,7 @@ export default {
 .btn-facebook {
   color: white;
   background-color: #3b5998;
-}
+} */
 
 /* Fallback for Edge
 -------------------------------------------------- */

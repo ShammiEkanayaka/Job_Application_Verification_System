@@ -8,7 +8,6 @@ import Add from "./views/Admin/Add_Users.vue";
 import Edit from "./views/Admin/Edit_User.vue";
 import Edituser from "./views/User/Edit_User.vue";
 import Guest from "./views/User/Guest_view.vue";
-//import user1 from "./views/User/user1.vue";
 import adminlogin from "./views/Login/AdminLogin";
 
 Vue.use(Router);

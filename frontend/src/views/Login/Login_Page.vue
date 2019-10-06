@@ -7,44 +7,61 @@
           <div class="card card-signin my-5">
             <div class="card-body">
               <h5 class="card-title text-center">Login</h5>
-              <form class="form-signin" @submit.prevent="submitForm">
-                <div class="form-label-group">
-                  <input
-                    type="text"
-                    id="inputEmail"
-                    class="form-control"
-                    placeholder="Email address"
-                    required
-                    autofocus
-                    v-model="user.index"
-                  />
-                  <label for="inputEmail">Index Number</label>
-                </div>
-
-                <div class="form-label-group">
-                  <input
-                    type="password"
-                    id="inputPassword"
-                    class="form-control"
-                    placeholder="Password"
-                    required
-                    v-model="user.password"
-                  />
-                  <label for="inputPassword">Password</label>
-                </div>
-
-                <div class="custom-control custom-checkbox mb-3">
-                  <input type="checkbox" class="custom-control-input" id="customCheck1" />
-                  <label class="custom-control-label" for="customCheck1">Remember password</label>
-                </div>
-                <hr class="my-4" />
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
-                <button
-                  class="btn btn-lg btn-primary btn-block text-uppercase"
-                  type="button"
-                  @click="$router.push('register')"
-                >Register</button>
-              </form>
+              <ValidationObserver ref="observer" v-slot="{ passes }">
+                <form class="form-signin" @submit.prevent="passes(submitForm)">
+                  <validation-provider
+                    :rules="{ regex: /^S-[0-9]{4}$/ }"
+                    v-slot="{ valid, errors }"
+                  >
+                    <div class="form-label-group">
+                      <input
+                        type="text"
+                        id="inputEmail"
+                        class="form-control"
+                        placeholder="Email address"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        required
+                        autofocus
+                        v-model="user.index"
+                      />
+                      <div id="index" class="valid-feedback text-left">Looks Good</div>
+                      <div id="index" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputEmail">Index Number</label>
+                    </div>
+                  </validation-provider>
+                  <validation-provider rules="required|min:6" v-slot="{ valid, errors }">
+                    <div class="form-label-group">
+                      <input
+                        type="password"
+                        id="inputPassword"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                        v-model="user.password"
+                      />
+                      <div id="level" class="valid-feedback text-left">Looks Good</div>
+                      <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="inputPassword">Password</label>
+                    </div>
+                  </validation-provider>
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                    <label class="custom-control-label" for="customCheck1">Remember password</label>
+                  </div>
+                  <hr class="my-4" />
+                  <button
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="submit"
+                  >Login</button>
+                  <p style="text-align:center; font-size:11px;">Not a member?</p>
+                  <button
+                    class="btn btn-lg btn-primary btn-block text-uppercase"
+                    type="button"
+                    @click="$router.push('register')"
+                  >Register</button>
+                </form>
+              </ValidationObserver>
               <div class="text-center">
                 <a class="small" v-on:click="forget">Forgot password?</a>
               </div>
@@ -91,21 +108,48 @@ export default {
         .post("http://localhost:8000/api/login", this.user)
         .then(function(response) {
           var res = response.body.token.token.name.split("_", 1);
-          //console.log(response.body.token.accessToken);
+          //console.log(response);
           localStorage.setItem("usertoken", response.body.token.accessToken);
           localStorage.setItem("index", res[0]);
           //this.emitMethod();
-          this.$store.commit('updateIndex', localStorage.getItem('index'));
+          this.$store.commit("updateIndex", localStorage.getItem("index"));
           this.$router.push("/editUser");
+        })
+        .catch(error => {
+          console.log(error);
+          if (error.status === 422) {
+            swal({
+              title: "Invalied Input",
+              text: "Insert Registered Index Number",
+              icon: "warning",
+              button: "Ok"
+            });
+          } else if (error.status === 423) {
+            swal({
+              title: "Not Active",
+              text:
+                "Please contact system administrator to activate your account",
+              icon: "error",
+              dangerMode: true,
+              button: "Ok"
+            });
+          } else {
+            swal({
+              title: "Invalied Input",
+              text: "Insert Valied Password",
+              icon: "warning",
+              button: "Ok"
+            });
+          }
         });
     },
     forget: function() {
       swal({
-            title: "Reset Password",
-            text: "Please contact system administrator to reset your password",
-            icon: "warning",
-            button: "Ok"
-          });
+        title: "Reset Password",
+        text: "Please contact system administrator to reset your password",
+        icon: "warning",
+        button: "Ok"
+      });
     },
     /* emitMethod() {
       EventBus.$emit("logged-in", "userlog");

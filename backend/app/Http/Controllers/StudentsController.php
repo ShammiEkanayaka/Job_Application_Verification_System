@@ -135,7 +135,7 @@ class StudentsController extends Controller
          }
          else{
 
-            if($request->image == $User->first()->image){
+            if(($request->image == $User->first()->image)||($request->image == null)){
                 $filename = $request->image;
                 
             }
@@ -222,7 +222,7 @@ class StudentsController extends Controller
          }
          else{
 
-            if($request->image == $User->first()->image){
+            if(($request->image == $User->first()->image)||($request->image == null)){
                 $filename = $request->image;
                 
             }
@@ -341,7 +341,7 @@ class StudentsController extends Controller
 
             $User2 = DB::table('users')->where('index', '=', $index);   //search index in user table
             $User2->update([
-                'password'=>bcrypt($request->pass)
+                'password'=>bcrypt($request->pass) //update password in user table
             ]);
 
             //return response()->json(['message'=>$User->first()],200);
@@ -370,6 +370,27 @@ class StudentsController extends Controller
             ]);
     
             return response()->json(['message'=>$User->first()],200);
+     }
+    }
+
+    public function GenerateLink(Request $request, $index){
+
+        $User = DB::table('Students')->where('index', '=', $index);
+         
+         if($User->first() == null){
+             return response()->json(['message'=>"User not found"],404);
+         }
+         else{
+
+            $currenttime = \Carbon\Carbon::now()->timestamp;
+            $str  = str_random(10);
+            $AccessLink = $currenttime.'-'.$str;
+
+            $User->update([
+                'AccessLink' => $AccessLink
+            ]);
+    
+            return response()->json(['user'=>$User->first()],200);
      }
     }
 }

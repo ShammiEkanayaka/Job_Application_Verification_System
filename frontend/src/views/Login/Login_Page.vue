@@ -116,7 +116,7 @@ export default {
           this.$router.push("/editUser");
         })
         .catch(error => {
-          console.log(error);
+          //console.log(error);
           if (error.status === 422) {
             swal({
               title: "Invalied Input",

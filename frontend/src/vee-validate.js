@@ -14,7 +14,7 @@ extend("email", {
 
 extend("confirmed", {
   ...confirmed,
-  message: "This field confirmation does not match"
+  message: "This password confirmation does not match"
 });
 
 extend("length", {

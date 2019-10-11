@@ -2,7 +2,7 @@
   <div class="col-12 bg container">
     <div class="container" id="contain">
       <form @submit.prevent="updateInfo">
-        <div class="row">
+        <div v-show="user.image" class="row">
           <div class="col-sm-4"></div>
           <div class="col-sm-4 card mb-5 shadow">
             <div class="card-body">
@@ -436,7 +436,13 @@ export default {
       this.$http
         .get("http://localhost:8000/api/guestUser/" + this.$route.params.index)
         .then(function(response) {
-          this.user = response.body["0"].user;
+          //console.log(response)
+          if(response.body["0"].user === null){
+            this.$router.push('/');
+          }
+          else{
+            this.user = response.body["0"].user;
+          } 
         });
     },
     scrollToTop() {

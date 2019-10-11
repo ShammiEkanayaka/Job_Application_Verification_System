@@ -23,18 +23,18 @@
               <img v-else v-bind:src="user.image" alt="Card image" />
               <div class="card-footer text-muted">
                 <validation-provider
-                  rules="mimes:image/jpg,image/png"
+                  rules="mimes:image/jpeg,image/jpg,image/png"
                   v-slot="{ valid, errors, validate }"
                 >
                   <b-form-file
                     class="input"
                     size="sm"
                     style="text-align: left"
-                    placeholder="Choose a file or drop it here..."
-                    drop-placeholder="Drop file here..."
+                    placeholder="Choose a file ..."
                     v-on:change="validate"
                     @change="getImage($event)"
                   />
+                  <button type="button" @click="remove()" class="btn btn-danger tiny" style="margin-left: 80%">Remove</button>
                   <small
                     id="fileHelp"
                     class="row form-text text-muted"
@@ -57,6 +57,7 @@
                   type="text"
                   class="form-control"
                   required
+                  readonly
                   :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
                   name="index"
                   id="index"
@@ -76,6 +77,7 @@
                   required
                   class="form-control"
                   id="reg"
+                  readonly
                   placeholder="2016/SP/001"
                   v-model="user.reg"
                   :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
@@ -155,7 +157,7 @@
             <label class="col-form-label">NIC</label>
             <div class="col-sm">
               <validation-provider
-                :rules="{ regex: /(^[0-9]{9}v$|[0-9]{12})/ }"
+                :rules="{ regex: /(^[0-9]{9}v$|^[0-9]{12})$/ }"
                 v-slot="{ valid, errors }"
               >
                 <input
@@ -222,16 +224,16 @@
             <div class="col-sm">
               <validation-provider rules="between:0,4" v-slot="{ valid, errors }">
                 <input
-                type="number"
-                step="0.01"
-                class="form-control"
-                :class="errors[0] ? 'is-invalid' : (valid ? null : null)"
-                id="gpa"
-                placeholder="4.00"
-                v-model="user.gpa"
-              />
+                  type="number"
+                  step="0.01"
+                  class="form-control"
+                  :class="errors[0] ? 'is-invalid' : (valid ? null : null)"
+                  id="gpa"
+                  placeholder="4.00"
+                  v-model="user.gpa"
+                />
                 <div id="loc" class="invalid-feedback text-left">{{ errors[0] }}</div>
-              </validation-provider> 
+              </validation-provider>
             </div>
             <label class="col-form-label" id="duration">Duration</label>
             <div class="col-sm">
@@ -372,6 +374,9 @@
                 @click="$router.push('/guest/' +user.AccessLink)"
               />
             </div>
+            <div class="col-sm-2">
+              <button type="button" @click="GenerateLink()" class="btn btn-info btn-sm">Generate</button>
+            </div>
           </div>
           <div class="form-group row">
             <button type="submit" class="btn btn-success" style="margin-left: 90%">Update</button>
@@ -383,6 +388,15 @@
 </template>
 
 <style scoped>
+.tiny {
+    font-size : 10px; 
+    width: 50px;
+    height: 20px;
+    border: 0 none transparent;
+    padding:0.5px;
+    margin:0;
+}
+
 .bg {
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
   height: 100%;
@@ -457,7 +471,7 @@ export default {
           this.user
         )
         .then(function(response) {
-          console.log(response);
+          //console.log(response);
           swal("Updated", "User details updated", "warning");
         });
     },
@@ -468,6 +482,26 @@ export default {
         this.user.image = e.target.result;
       };
       this.imaging = true;
+    },
+    GenerateLink() {
+      swal({
+        title: "Are you sure",
+        text: "Do you want generate new link ?",
+        icon: "warning",
+        buttons: ["No", "Yes !"],
+        dangerMode: true
+      }).then(willDelete => {
+        if (willDelete) {
+          this.$http
+            .get("http://localhost:8000/api/GenerateLink/" + localStorage.index)
+            .then(function(response) {
+              this.user = response.body.user;
+            });
+        }
+      });
+    },
+    remove() {
+      this.user.image = null;
     }
   }
 };

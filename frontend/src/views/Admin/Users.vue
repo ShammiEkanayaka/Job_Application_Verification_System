@@ -16,7 +16,7 @@
         <tr class="table-success">
           <th scope="col">Index Number</th>
           <th scope="col">Reg. Number</th>
-          <th scope="col">Name</th>
+          <!-- <th scope="col" class="name">Name</th> -->
           <th scope="col">Current Level</th>
           <th scope="col">Status</th>
           <th scope="col"></th>
@@ -26,7 +26,7 @@
           <tr id="row" v-for="(user, indx) in filterBy(Users, filterInput)" v-bind:key="indx">
             <td>{{user.index}}</td>
             <td>{{user.reg}}</td>
-            <td align="left">{{user.name}}</td>
+            <!-- <td align="left">{{user.name}}</td> -->
             <td>{{user.level}}</td>
             <td>
               <div class="row-center">
@@ -55,7 +55,7 @@
                 />
               </div>
             </td>
-            <td>
+            <td align="right">
               <router-link class="btn btn-warning btn-sm" :to="'/edit/'+user.index">Edit</router-link>
               <button
                 type="button"
@@ -73,12 +73,7 @@
 </template>
 
 <script>
-//import EventBus from "@/EventBus";
-//import SideBar from '@/components/Side_Bar.vue'
 export default {
-  /* components:{
-    SideBar
-  }, */
   data() {
     return {
       Users: [],
@@ -166,7 +161,7 @@ export default {
 .table-success {
   font-weight: bold;
   color: black;
-} 
+}
 #row {
   font-weight: bold;
   color: black;

@@ -4,7 +4,7 @@
       <ValidationObserver ref="observer" v-slot="{ passes }">
         <form @submit.prevent="passes(submitForm)">
           <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4"><h1>ADD USER</h1></div>
             <div class="col-sm-4"></div>
             <div class="col-sm-4 card mb-5 shadow">
               <div class="card-body">
@@ -18,19 +18,18 @@
               />
               <div class="card-footer text-muted">
                 <validation-provider
-                  rules="mimes:image/jpg,image/png"
+                  rules="mimes:image/jpeg,image/jpg,image/png"
                   v-slot="{ valid, errors, validate }"
                 >
                   <b-form-file
                     class="input"
                     size="sm"
                     style="text-align: left"
-                    placeholder="Choose a file or drop it here..."
-                    drop-placeholder="Drop file here..."
+                    placeholder="Choose a file ..."
                     v-on:change="validate"
                     @change="getImage($event)"
                   />
-
+                  <button type="button" @click="remove()" class="btn btn-danger tiny" style="margin-left: 80%">Remove</button>
                   <small
                     id="fileHelp"
                     class="row form-text text-muted"
@@ -46,8 +45,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Index</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Index</label>
+            <div class="col-sm">
               <validation-provider :rules="{ regex: /^S-[0-9]{4}$/ }" v-slot="{ valid, errors }">
                 <input
                   type="text"
@@ -62,8 +61,8 @@
                 <div id="index" class="invalid-feedback text-left">{{ errors[0] }}</div>
               </validation-provider>
             </div>
-            <label class="col-sm-2 col-form-label">Reg. Number</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Reg. Number</label>
+            <div class="col-sm">
               <validation-provider
                 :rules="{ regex: /^[0-9]{4}[/](SP|CSC)[/][0-9]{3}$/ }"
                 v-slot="{ valid, errors }"
@@ -81,9 +80,10 @@
               </validation-provider>
             </div>
           </div>
+
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Full Name</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">Full Name</label>
+            <div class="col-sm">
               <validation-provider rules="required|max:255|alpha_spaces" v-slot="{ valid, errors }">
                 <input
                   type="text"
@@ -99,8 +99,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Email</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Email</label>
+            <div class="col-sm">
               <validation-provider rules="required|email" v-slot="{ valid, errors }">
                 <input
                   class="form-control"
@@ -113,8 +113,8 @@
                 <div id="email" class="invalid-feedback text-left">{{ errors[0] }}</div>
               </validation-provider>
             </div>
-            <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-            <div class="col-sm-4">
+            <label for="inputPassword" class="col-form-label">Password</label>
+            <div class="col-sm">
               <validation-provider rules="required|min:6" v-slot="{ valid, errors }">
                 <input
                   :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
@@ -130,8 +130,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Mobile</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Mobile</label>
+            <div class="col-sm">
               <validation-provider
                 :rules="{ regex: /^[0-9]{3}-[0-9]{7}$/ }"
                 v-slot="{ valid, errors }"
@@ -147,10 +147,10 @@
                 <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
               </validation-provider>
             </div>
-            <label class="col-sm-2 col-form-label">NIC</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">NIC</label>
+            <div class="col-sm">
               <validation-provider
-                :rules="{ regex: /(^[0-9]{9}v$|[0-9]{12})/ }"
+                :rules="{ regex: /(^[0-9]{9}v$|^[0-9]{12})$/ }"
                 v-slot="{ valid, errors }"
               >
                 <input
@@ -165,8 +165,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Location</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Location</label>
+            <div class="col-sm">
               <validation-provider rules="alpha_spaces|max:255" v-slot="{ valid, errors }">
                 <input
                   type="text"
@@ -179,15 +179,14 @@
                 <div id="loc" class="invalid-feedback text-left">{{ errors[0] }}</div>
               </validation-provider>
             </div>
-
-            <label class="col-sm-2 col-form-label">Date of Birth</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Date of Birth</label>
+            <div class="col-sm">
               <input type="date" class="form-control" id="dob" v-model="user.dob" />
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Course</label>
-            <div class="col-sm-4">
+            <label class="col-form-label">Course</label>
+            <div class="col-sm">
               <select class="form-control" id="course" placeholder="course" v-model="user.course">
                 <option value disabled selected>Select Course</option>
                 <option>Direct-Intake Computer Science</option>
@@ -195,8 +194,10 @@
                 <option value>Remove</option>
               </select>
             </div>
-            <label class="col-sm-2 col-form-label">Current Level</label>
-            <div class="col-sm-auto">
+          </div>
+          <div class="form-group row">
+            <label class="col-form-label">Current Level</label>
+            <div class="col-sm">
               <select class="form-control" id="level" v-model="user.level">
                 <option value disabled selected>Select Level</option>
                 <option>1G</option>
@@ -212,25 +213,34 @@
                 <option value>Remove</option>
               </select>
             </div>
-            <label class="col-sm-auto col-form-label">GPA</label>
-            <div class="col-sm-auto">
+            <label class="col-form-label">GPA</label>
+            <div class="col-sm">
               <validation-provider rules="between:0,4" v-slot="{ valid, errors }">
                 <input
-                type="number"
-                step="0.01"
-                class="form-control"
-                :class="errors[0] ? 'is-invalid' : (valid ? null : null)"
-                id="gpa"
-                placeholder="4.00"
-                v-model="user.gpa"
-              />
+                  type="number"
+                  step="0.01"
+                  class="form-control"
+                  :class="errors[0] ? 'is-invalid' : (valid ? null : null)"
+                  id="gpa"
+                  placeholder="4.00"
+                  v-model="user.gpa"
+                />
                 <div id="loc" class="invalid-feedback text-left">{{ errors[0] }}</div>
-              </validation-provider>    
+              </validation-provider>
+            </div>
+            <label class="col-form-label" id="duration">Duration</label>
+            <div class="col-sm">
+              <select class="form-control" id v-model="user.duration">
+                <option value disabled selected>Select Years</option>
+                <option>3 years</option>
+                <option>4 years</option>
+                <option value>Remove</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Degree</label>
-            <div class="col-sm-7">
+            <label class="col-form-label">Degree</label>
+            <div class="col-sm">
               <select class="form-control" id="degree" v-model="user.degree">
                 <option value disabled selected>Select Degree</option>
                 <option>Bachelor of Science in Computer Science</option>
@@ -241,19 +251,10 @@
                 <option value>Remove</option>
               </select>
             </div>
-            <label class="col-sm-1 col-form-label">Duration</label>
-            <div class="col-sm-2">
-              <select class="form-control" id="duration" v-model="user.duration">
-                <option value disabled selected>Select Years</option>
-                <option>3 years</option>
-                <option>4 years</option>
-                <option value>Remove</option>
-              </select>
-            </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Achievements</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">Achievements</label>
+            <div class="col-sm">
               <validation-provider rules="max:255" v-slot="{ valid, errors }">
                 <textarea
                   class="form-control"
@@ -268,8 +269,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Project - I</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">Project - I</label>
+            <div class="col-sm">
               <validation-provider rules="max:255" v-slot="{ valid, errors }">
                 <textarea
                   class="form-control"
@@ -284,8 +285,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Project - II</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">Project - II</label>
+            <div class="col-sm">
               <validation-provider rules="max:255" v-slot="{ valid, errors }">
                 <textarea
                   class="form-control"
@@ -300,8 +301,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">LinkedIn</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">LinkedIn</label>
+            <div class="col-sm">
               <validation-provider
                 :rules="{ regex: /^https:[/][/]www.linkedin.com[/]/ }"
                 v-slot="{ valid, errors }"
@@ -318,8 +319,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">GitHub</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">GitHub</label>
+            <div class="col-sm">
               <validation-provider
                 :rules="{ regex: /^https:[/][/]www.github.com[/]/ }"
                 v-slot="{ valid, errors }"
@@ -337,14 +338,13 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Facebook</label>
-            <div class="col-sm-10">
+            <label class="col-form-label">Facebook</label>
+            <div class="col-sm">
               <validation-provider
                 :rules="{ regex: /^https:[/][/]www.facebook.com[/]/ }"
                 v-slot="{ valid, errors }"
               >
                 <input
-                  type="url"
                   class="form-control"
                   id="facebook"
                   v-model="user.facebook"
@@ -365,6 +365,15 @@
 </template>
 
 <style scoped>
+.tiny {
+    font-size : 10px; 
+    width: 50px;
+    height: 20px;
+    border: 0 none transparent;
+    padding:0.5px;
+    margin:0;
+}
+
 .bg {
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
   height: 100%;
@@ -382,7 +391,7 @@
   padding-top: 50px;
   border-radius: 10px;
   margin-left: 150px;
-  padding-left: 20px;
+  padding-left: 30px;
   padding-right: 20px;
 }
 img {
@@ -392,21 +401,25 @@ img {
   display: block;
 }
 
-label {
+.col-form-label {
   text-align: left;
   font-weight: bold;
   color: black;
+  width: 100px;
+}
+
+#duration {
+  width: 90px;
+}
+
+h1{
+  color: rgb(83, 83, 83);
 }
 </style>
 
 
 <script>
-//import SideBar from '@/components/Side_Bar.vue'
-
 export default {
-  /* components:{
-       SideBar
-     }, */
   created() {
     this.scrollToTop();
   },
@@ -456,6 +469,9 @@ export default {
     },
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+    remove() {
+      this.user.image = null;
     }
   }
 };

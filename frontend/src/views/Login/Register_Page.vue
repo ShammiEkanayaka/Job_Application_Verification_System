@@ -87,7 +87,7 @@
                     </div>
                   </validation-provider>
                   <hr />
-                  <validation-provider rules="required|min:6" v-slot="{ valid, errors }">
+                  <validation-provider rules="required|min:6" v-slot="{ valid, errors }" vid="confirmation">
                     <div class="form-label-group">
                       <input
                         type="password"
@@ -100,6 +100,21 @@
                       <div id="level" class="valid-feedback text-left">Looks Good</div>
                       <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
                       <label for="inputPassword">Password</label>
+                    </div>
+                  </validation-provider>
+                  <validation-provider rules="required|confirmed:confirmation" v-slot="{ valid, errors }">
+                    <div class="form-label-group">
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="form-control"
+                        v-model="confirmation"
+                        placeholder="Confirm Password"
+                        :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
+                      />
+                      <div id="level" class="valid-feedback text-left">Looks Good</div>
+                      <div id="level" class="invalid-feedback text-left">{{ errors[0] }}</div>
+                      <label for="confirmPassword">Confirm Password</label>
                     </div>
                   </validation-provider>
                   <button

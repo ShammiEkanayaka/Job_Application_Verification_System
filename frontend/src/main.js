@@ -28,7 +28,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.visitor)) {
     if (store.getters.profile !== null) {
       next({
-        path: '/'
+        path: '/editUser'
       })
     } else {
       next()

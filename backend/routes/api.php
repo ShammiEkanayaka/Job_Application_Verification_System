@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user/{userId}/detail', 'UserController@show');
-    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']); //student get himself details
+    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']); //student get details himself
 });
 
 Route::middleware('auth:admin-api')->group(function () {
@@ -66,5 +66,11 @@ Route::put('/editUser/{index}',[
 Route::put('/editUserStatus/{index}',[
 
     'uses'=>'StudentsController@editUserStatus'
+
+]);
+
+Route::get('/GenerateLink/{index}',[
+
+    'uses'=>'StudentsController@GenerateLink'
 
 ]);

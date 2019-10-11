@@ -20,7 +20,7 @@ export default new Router({
       name: "login",
       component: Login_Page,
       meta: {
-        visitor: true,
+        visitor: true
       }
     },
     {
@@ -38,7 +38,7 @@ export default new Router({
       name: "users",
       component: Users,
       meta: {
-        admin: true,
+        admin: true
       }
     },
     {
@@ -46,7 +46,7 @@ export default new Router({
       name: "add",
       component: Add,
       meta: {
-        admin: true,
+        admin: true
       }
     },
     {
@@ -54,7 +54,7 @@ export default new Router({
       name: "edit",
       component: Edit,
       meta: {
-        admin: true,
+        admin: true
       }
     },
     {
@@ -62,7 +62,7 @@ export default new Router({
       name: "editUser",
       component: Edituser,
       meta: {
-        user: true,
+        user: true
       }
     },
     {
@@ -75,7 +75,7 @@ export default new Router({
       name: "adminlogin",
       component: adminlogin,
       meta: {
-        visitor: true,
+        visitor: true
       }
     },
     {

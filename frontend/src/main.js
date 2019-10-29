@@ -12,8 +12,6 @@ Vue.component('b-form', BForm)
 Vue.use(FormCheckboxPlugin);
 Vue.component('b-form-file', BFormFile); */
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
-//import { required } from 'vee-validate/dist/rules';
-//import { ValidationProvider } from 'vee-validate/dist/vee-validate.full';
 import "./vee-validate";
 
 

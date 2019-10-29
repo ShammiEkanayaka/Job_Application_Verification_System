@@ -81,15 +81,6 @@
 </template>
 
 <script>
-/* export default {
-  methods: {
-    forget: function () {
-      alert('Please contact your system administrator')
-    }
-  }
-} */
-//import EventBus from "@/EventBus";
-
 export default {
   data() {
     return {
@@ -108,15 +99,12 @@ export default {
         .post("http://localhost:8000/api/login", this.user)
         .then(function(response) {
           var res = response.body.token.token.name.split("_", 1);
-          //console.log(response);
           localStorage.setItem("usertoken", response.body.token.accessToken);
           localStorage.setItem("index", res[0]);
-          //this.emitMethod();
           this.$store.commit("updateIndex", localStorage.getItem("index"));
           this.$router.push("/editUser");
         })
         .catch(error => {
-          //console.log(error);
           if (error.status === 422) {
             swal({
               title: "Invalied Input",
@@ -151,9 +139,6 @@ export default {
         button: "Ok"
       });
     },
-    /* emitMethod() {
-      EventBus.$emit("logged-in", "userlog");
-    }, */
     scrollToTop() {
       window.scrollTo(0, 0);
     }
@@ -163,13 +148,8 @@ export default {
 
 <style>
 .bg {
-  /* The image used */
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
-
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -275,16 +255,6 @@ export default {
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
-}
-
-.btn-google {
-  color: white;
-  background-color: #ea4335;
-}
-
-.btn-facebook {
-  color: white;
-  background-color: #3b5998;
 }
 
 /* Fallback for Edge

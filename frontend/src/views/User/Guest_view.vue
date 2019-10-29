@@ -436,7 +436,6 @@ export default {
       this.$http
         .get("http://localhost:8000/api/guestUser/" + this.$route.params.index)
         .then(function(response) {
-          //console.log(response)
           if(response.body["0"].user === null){
             this.$router.push('/');
           }

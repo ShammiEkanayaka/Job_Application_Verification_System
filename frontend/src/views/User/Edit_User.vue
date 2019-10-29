@@ -452,10 +452,8 @@ export default {
   },
   methods: {
     getData() {
-      //console.log(localStorage.index);
       this.$http
-        .get("http://localhost:8000/api/getUser1/" + localStorage.index, {
-          //this.$route.params.index, {
+        .get("http://localhost:8000/api/getUserU/" + localStorage.index, {
           headers: {
             Authorization: `Bearer ${localStorage.usertoken}`
           }
@@ -471,7 +469,6 @@ export default {
           this.user
         )
         .then(function(response) {
-          //console.log(response);
           swal("Updated", "User details updated", "warning");
         });
     },
@@ -495,7 +492,7 @@ export default {
           this.$http
             .get("http://localhost:8000/api/GenerateLink/" + localStorage.index)
             .then(function(response) {
-              this.user = response.body.user;
+              this.user.AccessLink = response.body.user.AccessLink;
             });
         }
       });

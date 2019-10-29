@@ -754,7 +754,7 @@ export default {
                 this.$route.params.index
             )
             .then(function(response) {
-              this.user = response.body.user;
+              this.user.AccessLink = response.body.user.AccessLink;
             });
         }
       });

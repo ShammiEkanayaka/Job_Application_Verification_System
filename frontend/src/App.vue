@@ -87,25 +87,12 @@
 </template>
 
 <script>
-//import EventBus from "@/EventBus.vue";
 export default {
-  /* data() {
-    return {
-      auth: "",
-      index: "",
-      email: ""
-    };
-  }, */
   computed: {
     profile() {
       return this.$store.getters.profile;
     }
   },
-  /* mounted() {
-    EventBus.$on("logged-in", status =>{
-      this.auth = status
-    })
-  }, */
   methods: {
     logout() {
       this.$http
@@ -118,18 +105,10 @@ export default {
           localStorage.removeItem("usertoken");
           localStorage.removeItem("index");
           localStorage.removeItem("email");
-          //this.emitMethod()
           this.$store.commit("updateIndex", localStorage.getItem("index"));
           this.$store.commit("updateEmail", localStorage.getItem("email"));
         });
     }
-    /* emitMethod() {
-      EventBus.$emit("logged-in", "");
-    }, */
-    /* update(){
-      this.$store.commit('updateIndex', localStorage.getItem('index'));
-      this.$store.commit('updateEmail', localStorage.getItem('email'));
-    } */
   }
 };
 </script>

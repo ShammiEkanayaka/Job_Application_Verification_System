@@ -15,28 +15,24 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user/{userId}/detail', 'UserController@show');
-    Route::get('/getUser1/{id}',['uses'=>'StudentsController@getUser1']); //student get details himself
+    Route::get('/getUserU/{id}',['uses'=>'StudentsController@getUser']); //student get details himself
 });
 
 Route::middleware('auth:admin-api')->group(function () {
     Route::get('admin', 'AdminController@show');
-    Route::get('/getUser',['uses'=>'StudentsController@getUser']);
-    Route::get('/getUserA/{id}',['uses'=>'StudentsController@getUser1']);
+    Route::get('/getUsers',['uses'=>'StudentsController@getUsers']);
+    Route::get('/getUserA/{id}',['uses'=>'StudentsController@getUser']);
 });
 
 Route::post('admin/login', 'Auth\AdminLoginController@login');
 
 Route::get('/guestUser/{id}',['uses'=>'StudentsController@guestUser']);
 
-//Route::post('register','AuthController@register');
-
 Route::post('login','AuthController@login');
 
 Route::middleware('auth:api,admin-api')->group(function () {
     Route::get('/logout', 'AuthController@logout')->name('logout');
 });
-
-//Route::get('logout','AuthController@logout');
 
 
 // student table

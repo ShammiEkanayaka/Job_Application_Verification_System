@@ -13,23 +13,7 @@ class AuthController extends Controller
 
         return $token->accessToken;
     }
-
-    /* public function register(Request $request)
-    {
-        $request->validate([
-            'name'=>'required',
-            'email'=>'required|email',
-            'password'=>'required|min:4'
-        ]);
-
-        $user = User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>bcrypt($request->password)
-        ]);
-
-        return response()->json($user);
-    } */
+    
     public function login(Request $request)
     {
         $request->validate([

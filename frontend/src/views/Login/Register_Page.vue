@@ -29,10 +29,6 @@
                       <label for="inputUserame">Index</label>
                     </div>
                   </validation-provider>
-                  <!-- <div class="form-label-group">
-                <input type="text" id="reg" class="form-control" required v-model="user.reg">
-                <label for="inputUserame">Reg. Number</label>
-                  </div>-->
                   <validation-provider
                     :rules="{ regex: /^[0-9]{4}[/](SP|CSC)[/][0-9]{3}$/ }"
                     v-slot="{ valid, errors }"
@@ -189,14 +185,6 @@ export default {
     scrollToTop() {
       window.scrollTo(0, 0);
     }
-    /* submitForm() {
-      this.$http
-        .post("http://localhost:8000/api/register", this.user)
-        .then(function(response) {
-          console.log(response);
-          this.$router.push("/login");
-        });
-    } */
   }
 };
 </script>
@@ -207,13 +195,8 @@ export default {
 }
 
 .bg {
-  /* The image used */
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
-
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -319,16 +302,6 @@ export default {
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
-}
-
-.btn-google {
-  color: white;
-  background-color: #ea4335;
-}
-
-.btn-facebook {
-  color: white;
-  background-color: #3b5998;
 }
 
 /* Fallback for Edge

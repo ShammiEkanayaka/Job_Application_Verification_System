@@ -146,3 +146,16 @@ h2 {
   background-size: cover;
 }
 </style>
+
+<script>
+export default {
+  created() {
+    this.scrollToTop();
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    }
+  }
+}
+</script>

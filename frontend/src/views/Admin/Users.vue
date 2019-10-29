@@ -83,7 +83,7 @@ export default {
   created() {
     this.scrollToTop();
     this.$http
-      .get("http://localhost:8000/api/getUser", {
+      .get("http://localhost:8000/api/getUsers", {
         headers: {
           Authorization: `Bearer ${localStorage.usertoken}`
         }
@@ -98,7 +98,6 @@ export default {
         title: "Are you sure",
         text: "Do you want delete " + event.target.id + " user?",
         icon: "error",
-        //buttons: true,
         buttons: ["No", "Yes !"],
         dangerMode: true
       }).then(willDelete => {
@@ -106,17 +105,12 @@ export default {
           this.$http
             .delete("http://localhost:8000/api/deleteUser/" + event.target.id)
             .then(function(response) {
-              /* var position = this.user.findIndex(function(element){
-          return element.id = event.target.id;
-        })  */
-
               this.Users.splice(event.target.title, 1);
             });
         }
       });
     },
     updateInfo($event, id) {
-      //console.log(event.target.title);
       this.$http
         .put(
           "http://localhost:8000/api/editUserStatus/" + event.target.id,
@@ -140,13 +134,8 @@ export default {
 
 <style scoped>
 .bg {
-  /* The image used */
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
-
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

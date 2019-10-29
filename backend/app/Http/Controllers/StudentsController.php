@@ -75,14 +75,14 @@ class StudentsController extends Controller
         return response()->json(['message'=>$user],201);
     }
 
-    public function getUser(){
+    public function getUsers(){
 
         $allUser = Students::all();
         return response()->json(['allUser'=>$allUser],200);
 
     }
 
-    public function getUser1($index){
+    public function getUser($index){
 
         $User = DB::table('Students')->where('index', '=', $index)->first();
 
@@ -127,9 +127,7 @@ class StudentsController extends Controller
     public function editUser(Request $request, $index){
 
         $User = DB::table('Students')->where('index', '=', $index);
- 
-        //$User = Students::where('index', '=', $index);
-         
+          
          if($User->first() == null){
              return response()->json(['message'=>"User not found"],404);
          }
@@ -139,9 +137,6 @@ class StudentsController extends Controller
                 $filename = $request->image;
                 
             }
-            /* elseif($request->image == $User->first()->image){
-                $filename = $request->image;
-            } */
             else{
                 
                 $expl = explode(',',$request->image);
@@ -214,8 +209,6 @@ class StudentsController extends Controller
     public function updateUserU(Request $request, $index){        //user update his details
 
         $User = DB::table('Students')->where('index', '=', $index);
- 
-        //$User = Students::where('index', '=', $index);
          
          if($User->first() == null){
              return response()->json(['message'=>"User not found"],404);
@@ -226,9 +219,7 @@ class StudentsController extends Controller
                 $filename = $request->image;
                 
             }
-            /* elseif($request->image == $User->first()->image){
-                $filename = $request->image;
-            } */
+
             else{
                 
                 $expl = explode(',',$request->image);
@@ -344,7 +335,6 @@ class StudentsController extends Controller
                 'password'=>bcrypt($request->pass) //update password in user table
             ]);
 
-            //return response()->json(['message'=>$User->first()],200);
             return response()->json(['message'=>$request->name,$User->first()->name],200);
      }
     }
@@ -352,8 +342,6 @@ class StudentsController extends Controller
     public function editUserStatus(Request $request, $index){
 
         $User = DB::table('Students')->where('index', '=', $index);
-        
-        //$User = Students::where('index', '=', $index);
          
          if($User->first() == null){
              return response()->json(['message'=>"User not found"],404);

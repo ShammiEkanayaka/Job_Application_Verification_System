@@ -70,8 +70,6 @@
 </template>
 
 <script>
-//import EventBus from "@/EventBus";
-
 export default {
   data() {
     return {
@@ -90,10 +88,8 @@ export default {
         .post("http://localhost:8000/api/admin/login", this.user)
         .then(function(response) {
           var res = response.body.token.token.name.split("-", 1);
-          //console.log(response.body.token.accessToken);
           localStorage.setItem("usertoken", response.body.token.accessToken);
           localStorage.setItem("email", res[0]);
-          //this.emitMethod();
           this.$store.commit("updateEmail", localStorage.getItem("email"));
           this.$router.push("/users");
         })
@@ -115,9 +111,6 @@ export default {
           }
         });
     },
-    /* emitMethod() {
-      EventBus.$emit("logged-in", "adminlog");
-    }, */
     scrollToTop() {
       window.scrollTo(0, 0);
     }
@@ -127,13 +120,8 @@ export default {
 
 <style>
 .bg {
-  /* The image used */
   background-image: url("https://webfoundation.org/docs/2017/03/March-12-Letter.jpg");
-
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -240,16 +228,6 @@ export default {
   font-size: 12px;
   color: #777;
 }
-
-/* .btn-google {
-  color: white;
-  background-color: #ea4335;
-}
-
-.btn-facebook {
-  color: white;
-  background-color: #3b5998;
-} */
 
 /* Fallback for Edge
 -------------------------------------------------- */

@@ -169,13 +169,14 @@ export default {
             icon: "success",
             button: "Ok"
           });
+          this.user='';
           this.$router.push("/login");
         })
         .catch(error => {
           if (error.status === 422) {
             swal({
               title: "Invalied Input",
-              text: "The index has already been registered",
+              text: "The index or register has already been registered",
               icon: "warning",
               button: "Ok"
             });

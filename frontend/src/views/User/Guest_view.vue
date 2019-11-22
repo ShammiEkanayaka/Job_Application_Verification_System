@@ -188,6 +188,12 @@
             <div class="valid-feedback text-right">Verified</div>
             <div class="invalid-feedback text-right">Not Verified</div>
           </div>
+          <label class="col-form-label">Attendance</label>
+          <div class="col-sm-2">
+            <input class="form-control is-valid" id="attendance" readonly v-model="attend"/>
+            <div id="attendance" class="valid-feedback text-right">Verified</div>
+            <div id="attendance" class="invalid-feedback text-right">Not Verified</div>
+          </div>
         </div>
         <div class="form-group row">
           <label v-show="user.achiev" class="col-form-label">Achievements</label>
@@ -343,6 +349,9 @@ img {
 #duration, #gpa, #level {
   width: 225px;
 }
+#attendance{
+  width: 150px;
+}
 </style>
 
 <script>
@@ -354,6 +363,7 @@ export default {
   data() {
     return {
       user: {},
+      attend: 'loading...',
       imaging: false
     };
   },
@@ -402,6 +412,10 @@ export default {
       if (this.user.degreeb) return "is-valid";
       return "is-invalid";
     },
+    /* attend() {
+      if (this.attend) return "is-valid";
+      return "is-invalid";
+    }, */
     duration() {
       if (this.user.durationb) return "is-valid";
       return "is-invalid";
@@ -442,6 +456,15 @@ export default {
           else{
             this.user = response.body["0"].user;
           } 
+          this.Attend();
+        });
+    },
+    Attend() {
+      
+      this.$http
+        .get("http://dev.nainathivu.com/api/reg/" + this.user.reg)
+        .then(function(response) {console.log(response);
+          this.attend = response.body;
         });
     },
     scrollToTop() {

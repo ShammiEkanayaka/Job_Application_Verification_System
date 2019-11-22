@@ -9,11 +9,27 @@ use Illuminate\Support\Facades\DB;
 
 class StudentsController extends Controller
 {
-    //
+    //test
+    public function Reg($slashData = null){
+
+        {
+            if($slashData) 
+            {
+                $User = DB::table('Students')->where('reg', '=', $slashData)->first();
+
+                $response = [
+                    'user'=>$User
+                ];
+               return response()->json([$response],200); //do stuff 
+            }
+        }
+    }
+
     public function postUser(Request $request){
 
         $request->validate([
             'index'=>'required|unique:users,index',
+            'reg'=>'required|unique:students,reg',
         ]);
 
         $user = new Students();

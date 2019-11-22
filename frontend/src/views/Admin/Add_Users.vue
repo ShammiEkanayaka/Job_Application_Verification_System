@@ -457,6 +457,16 @@ export default {
         .then(function(response) {
           this.$router.push("/users");
           swal("Success", "New student added", "success");
+        })
+        .catch(error => {
+          if (error.status === 422) {
+            swal({
+              title: "Invalied Input",
+              text: "The index or register has already been registered",
+              icon: "warning",
+              button: "Ok"
+            });
+          }
         });
     },
     getImage(e) {

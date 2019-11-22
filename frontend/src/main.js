@@ -14,7 +14,7 @@ Vue.component('b-form-file', BFormFile); */
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import "./vee-validate";
 
-
+const url = 'http://localhost:8000/';
 
 Vue.use(BootstrapVue)
 Vue.use(vueResource);
@@ -58,5 +58,6 @@ router.beforeEach((to, from, next) => {
 new Vue({
   router,
   store,
+  url,
   render: h => h(App)
 }).$mount("#app");

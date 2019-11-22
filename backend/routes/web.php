@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
+    
     return view('welcome');
 });
+
+//database test
+Route::get('/database',['uses'=>'StudentsController@getUsers']);

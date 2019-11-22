@@ -61,6 +61,7 @@
                   type="text"
                   class="form-control"
                   required
+                  readonly
                   :class="errors[0] ? 'is-invalid' : (valid ? 'is-valid' : null)"
                   name="index"
                   id="index"
@@ -79,6 +80,7 @@
               >
                 <input
                   required
+                  readonly
                   class="form-control"
                   id="reg"
                   placeholder="2016/SP/001"
@@ -377,6 +379,18 @@
                 :state="Boolean(user.levelb)"
               >Verified</b-form-valid-feedback>
             </b-form-checkbox>
+
+            <label class="col-form-label">Attendance</label>
+            <div class="col-sm">
+              <validation-provider rules="between:0,4" v-slot="{ valid , errors }">
+                <input
+                  type="text"
+                  class="form-control"
+                  v-model="attend"
+                />
+              </validation-provider>
+            </div>
+
             <label class="col-form-label">GPA</label>
             <div class="col-sm">
               <validation-provider rules="between:0,4" v-slot="{ valid, errors }">
@@ -409,6 +423,7 @@
                 :state="Boolean(user.gpab)"
               >Verified</b-form-valid-feedback>
             </b-form-checkbox>
+
           </div>
           <div class="form-group row">
             <label class="col-form-label">Degree</label>
@@ -698,10 +713,12 @@ export default {
   created() {
     this.scrollToTop();
     this.getData();
+    
   },
   data() {
     return {
       user: {},
+      attend: 'loading...',
       imaging: false
     };
   },
@@ -715,6 +732,14 @@ export default {
         })
         .then(function(response) {
           this.user = response.body["0"].user;
+          this.Attend();
+        });
+    },
+    Attend() { 
+      this.$http
+        .get("http://dev.nainathivu.com/api/reg/" + this.user.reg)
+        .then(function(response) {
+          this.attend = response.body;
         });
     },
     updateInfo() {

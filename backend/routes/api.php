@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//test
+Route::get('/reg/{slashData?}','StudentsController@Reg')
+        ->where('slashData', '(.*)');
+
+        //database test
+Route::get('/database',['uses'=>'StudentsController@getUsers']);
 
 Route::middleware('auth:api')->group(function () {
     Route::get('user/{userId}/detail', 'UserController@show');

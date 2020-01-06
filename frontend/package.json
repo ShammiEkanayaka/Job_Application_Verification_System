@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.28",
     "core-js": "^2.6.5",
+    "sweetalert": "^2.1.2",
     "vee-validate": "^3.0.8",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",

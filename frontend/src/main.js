@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import vueResource from 'vue-resource';
 import BootstrapVue from 'bootstrap-vue'
+import swal from 'sweetalert';
 /* import { BFormFile } from 'bootstrap-vue';
 import { FormCheckboxPlugin } from 'bootstrap-vue';
 import { BForm } from 'bootstrap-vue'
@@ -16,6 +17,7 @@ import "./vee-validate";
 
 const url = 'http://localhost:8000/';
 
+//Vue.use(swal)
 Vue.use(BootstrapVue)
 Vue.use(vueResource);
 Vue.config.productionTip = false;
@@ -59,5 +61,6 @@ new Vue({
   router,
   store,
   url,
+  swal,
   render: h => h(App)
 }).$mount("#app");

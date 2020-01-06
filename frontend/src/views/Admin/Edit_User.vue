@@ -382,13 +382,13 @@
 
             <label class="col-form-label">Attendance</label>
             <div class="col-sm">
-              <validation-provider rules="between:0,4" v-slot="{ valid , errors }">
+              <!-- <validation-provider rules="between:0,4" v-slot="{ valid , errors }"> -->
                 <input
                   type="text"
                   class="form-control"
                   v-model="attend"
                 />
-              </validation-provider>
+              <!-- </validation-provider> -->
             </div>
 
             <label class="col-form-label">GPA</label>
@@ -723,7 +723,7 @@ export default {
     };
   },
   methods: {
-    getData() {
+    getData() {console.log("get");
       this.$http
         .get("http://localhost:8000/api/getUserA/" + this.$route.params.index, {
           headers: {
@@ -742,7 +742,7 @@ export default {
           this.attend = response.body;
         });
     },
-    updateInfo() {
+    updateInfo() {console.log("update");
       this.$http
         .put(
           "http://localhost:8000/api/editUser/" + this.$route.params.index,

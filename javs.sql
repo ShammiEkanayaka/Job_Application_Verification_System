@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2019 at 07:53 PM
+-- Generation Time: Dec 26, 2019 at 01:11 PM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -44,7 +44,8 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Chanaka Dushmantha', 'chanaka@gmail.com', NULL, '$2y$10$34FqBvcD0qmD3H3GaflqtebkfGH7dyoyIABKewvSdUQi9vtQhGjvi', NULL, '2019-09-30 23:59:39', '2019-09-30 23:59:39');
+(1, 'Chanaka Dushmantha', 'chanaka@gmail.com', NULL, '$2y$10$34FqBvcD0qmD3H3GaflqtebkfGH7dyoyIABKewvSdUQi9vtQhGjvi', NULL, '2019-09-30 23:59:39', '2019-09-30 23:59:39'),
+(2, 'Dilshan', 'dilshan@gmail.com', NULL, '$2y$10$cA0RN8uOyobjmMqoQYKzhucwGRoAOpykBJJJoVhInJnRxW8wOHiJ2', NULL, '2019-12-24 00:43:24', '2019-12-24 00:43:24');
 
 -- --------------------------------------------------------
 
@@ -90,6 +91,14 @@ CREATE TABLE `oauth_access_tokens` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `expires_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `oauth_access_tokens`
+--
+
+INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('3f5c15ad6e1eaf5f92bf071200d084f06c66cf33d43b9df11c0e09c336b31d2039ee83376301f83d', 1, 1, 'chanaka@gmail.com-2019-12-20 17:22:22', '[]', 0, '2019-12-20 11:52:22', '2019-12-20 11:52:22', '2020-12-20 17:22:22'),
+('b8ef983eff09654f93ddd2bff2d4e5f4edae72ddbc062c1ecf0f1a376c0d0a2191884364f5024263', 1, 1, 'chanaka@gmail.com-2019-12-20 17:19:13', '[]', 0, '2019-12-20 11:49:16', '2019-12-20 11:49:16', '2020-12-20 17:19:16');
 
 -- --------------------------------------------------------
 
@@ -235,7 +244,15 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`index`, `status`, `reg`, `regb`, `name`, `nameb`, `email`, `emailb`, `pass`, `tel`, `telb`, `nic`, `nicb`, `loc`, `locb`, `dob`, `dobb`, `course`, `courseb`, `level`, `levelb`, `gpa`, `gpab`, `degree`, `degreeb`, `duration`, `durationb`, `achiev`, `achievb`, `p1`, `p1b`, `p2`, `p2b`, `linkedin`, `linkedinb`, `github`, `githubb`, `facebook`, `facebookb`, `AccessLink`, `image`, `created_at`, `updated_at`) VALUES
-('S-1111', 0, '2016/SP/444', 1, 'dfbddf fbf sfgtwyjmhmujmrds', 1, 'ds@fb.com', 0, '11', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1569907817-13WzAhXhsp', '1569952169.png', '2019-10-01 00:00:17', '2019-10-01 00:00:17');
+('S-1111', 0, '2016/SP/444', 1, 'dfbddf fbf sfgtwyjmhmujmrds', 1, 'ds@fb.com', 0, '11', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1569907817-13WzAhXhsp', '1569952169.png', '2019-10-01 00:00:17', '2019-10-01 00:00:17'),
+('S-9415', 1, '2016/SP/193', 0, 'Kaveesha Senanayake', 0, 'kavee@gmail.com', 0, '111111', '071-8696457', 0, '946889391v', 0, 'kurunegala', 0, '1994-09-15', 0, 'Physical Science', 0, '3M', 0, '3.06', 0, 'Bachelor of Science Honours in Computer Science', 0, '4 years', 0, NULL, 0, NULL, 0, NULL, 0, 'https://www.linkedin.com/in/KaveeshaSenanayake', 0, 'https://www.github.com/kaveesha', 0, NULL, 0, '1577358692-nXTVOEw5tZ', NULL, '2019-12-26 05:41:32', '2019-12-26 05:41:32'),
+('S-9454', 1, '2016/SP/314', 1, 'Chanaka Dushmantha Adikari', 0, 'chanaka@gmail.com', 0, '111111', '078-2425431', 0, '960120884v', 1, 'Badulla', 0, '1996-01-12', 0, 'Physical Science', 1, '3M', 1, '3.11', 0, 'Bachelor of Science Honours in Computer Science', 0, '4 years', 0, 'participate UOJ coders 1.0', 0, 'Result management system\nA result management system is a web application that helps Science Faculty to calculate and issuing student results.\nTechnologies - laravel PHP with MySQL and html, css, javascript.', 0, 'Job application verification system     \nThe job application verification system is a web application that helps companies to verify the correctness of application details.\nTechnologies - Vue js framework (html,css,javascript) and laravel PHP framework.', 0, 'https://www.linkedin.com/in/chanaka-dushmantha-36776218b/', 0, 'https://www.github.com/ChanakaDushmantha', 0, NULL, 0, '1576916065-KRup50YL2M', '1576922316.png', '2019-12-20 11:50:28', '2019-12-20 11:50:28'),
+('S-9457', 1, '2016/SP/029', 0, 'Shyamali Hasanthika Ekanayaka', 0, 'shyamali@gmail.com', 0, '111111', '071-5757584', 0, '956523114v', 1, 'Kandy', 0, '1995-04-05', 1, 'Physical Science', 1, '3M', 0, '3.22', 1, 'Bachelor of Science Honours in Computer Science', 0, '4 years', 0, NULL, 0, 'Mobile Shop Management System', 0, 'Job Application Verification System', 0, 'https://www.linkedin.com/in/ShammiEkanayaka', 0, NULL, 0, NULL, 0, '1576914142-Xc4T5QXAko', '1576914997.png', '2019-12-21 02:12:22', '2019-12-21 02:12:22'),
+('S-9991', 0, '2016/SP/991', 0, 'Hasith Vidranga', 0, 'hasitha@gmail.com', 0, '111111', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '3M', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1577266745-XPQGOp3aHs', NULL, '2019-12-25 04:09:05', '2019-12-25 04:09:05'),
+('S-9992', 0, '2016/SP/992', 0, 'Gayan Madusanka', 0, 'gayan@gmail.com', 0, '111111', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '3G', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1577266806-naEIaXArkW', NULL, '2019-12-25 04:10:06', '2019-12-25 04:10:06'),
+('S-9993', 0, '2016/SP/993', 0, 'Denuwan Kanishka', 0, 'denuwan@gmail.com', 0, '111111', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '3G', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1577266904-7Ubd545NFA', NULL, '2019-12-25 04:11:44', '2019-12-25 04:11:44'),
+('S-9994', 0, '2016/SP/994', 0, 'Saman Wijesinghe', 0, 'saman@gmail.com', 0, '111111', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '3G', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1577267165-COe28wIuch', NULL, '2019-12-25 04:16:05', '2019-12-25 04:16:05'),
+('S-9995', 0, '2016/SP/995', 0, 'Nisal Madhuranga', 0, 'nisal@gmail.com', 0, '111111', NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '3G', 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, NULL, 0, '1577267838-ON9mzGMMRu', NULL, '2019-12-25 04:27:18', '2019-12-25 04:27:18');
 
 -- --------------------------------------------------------
 
@@ -258,7 +275,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `index`, `status`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'S-1111', 0, '$2y$10$ADcdTZpPTw7SVa68M1F5re51SuzYsfteECyLfT70/BQuQyT7zQZL6', NULL, '2019-10-01 00:00:17', '2019-10-01 00:00:17');
+(1, 'S-1111', 0, '$2y$10$ADcdTZpPTw7SVa68M1F5re51SuzYsfteECyLfT70/BQuQyT7zQZL6', NULL, '2019-10-01 00:00:17', '2019-10-01 00:00:17'),
+(2, 'S-9454', 1, '$2y$10$X.ug1psCYygt45Jq059e0.2QOKHi4dwPPI7G7651zlCyjfF3RYNQa', NULL, '2019-12-20 11:50:28', '2019-12-20 11:50:28'),
+(3, 'S-9457', 1, '$2y$10$hZ3RDRHbVHx0.MnbIrX7ve3pllD2o8DLavt3plkflNOg9TZ7uiRpq', NULL, '2019-12-21 02:12:22', '2019-12-21 02:12:22'),
+(4, 'S-9991', 0, '$2y$10$sBU5Z7cAwNO2xs61axozjeCGWnvka.fwrzTUTIVQCAaZYAjlpv4uq', NULL, '2019-12-25 04:09:06', '2019-12-25 04:09:06'),
+(5, 'S-9992', 0, '$2y$10$Ap3JYNXz7RFjx8YYdW.zN.wJQ9HCJSXPKj68ZkUfqRe1bv1EbQ6XW', NULL, '2019-12-25 04:10:06', '2019-12-25 04:10:06'),
+(6, 'S-9993', 0, '$2y$10$OuLcUqwBFk27lbX8kxJ9LubpnM6gomtbHnf94.4WebJ3.xnZyGvg6', NULL, '2019-12-25 04:11:44', '2019-12-25 04:11:44'),
+(7, 'S-9994', 0, '$2y$10$zl9Y1vYf7OkkeFqGTHpFW.GBtAG0FoE6p3TNFpmqXb/pcqRqnAwki', NULL, '2019-12-25 04:16:05', '2019-12-25 04:16:05'),
+(8, 'S-9995', 0, '$2y$10$MT4sFUY10HVk4fMbF3XECuj7UCSEU1IrovWrZjHbQ1GM.1MZVF6fG', NULL, '2019-12-25 04:27:18', '2019-12-25 04:27:18'),
+(9, 'S-9415', 1, '$2y$10$HbE45Anti5SDXRTVW2OsKufS3/t06xNW0ni41RWIL1sWI6zNUtOkG', NULL, '2019-12-26 05:41:33', '2019-12-26 05:41:33');
 
 --
 -- Indexes for dumped tables
@@ -337,7 +362,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -361,7 +386,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
